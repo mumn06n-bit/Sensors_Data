@@ -1,0 +1,73 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diagnostic reports (next.js / node)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented code coverage downloads
+coverage
+*.lcov
+
+# Optional npm cache directory
+.npm
+
+# Output directory (Viteのビルド成果物)
+dist
+dist-ssr
+*.local
+
+# Dependencies (外部ライブラリ)
+node_modules
+/jspm_packages
+
+# TypeScript
+*.tsbuildinfo
+*.node
+
+# Optional eslint cache
+.eslintcache
+
+# Stylelint cache
+.stylelintcache
+
+# Local env files (環境変数ファイル - 機密情報が含まれるため絶対コミットしない)
+.env
+.env.local
+.env.[a-zA-Z0-9]*.local
+
+# 使用していない環境変数テンプレートはコミットしてOKな場合が多いため、以下は除外（必要に応じてコメントアウトを解除）
+# !.env.example
+
+# Stores VS Code application settings
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.history
+*.code-workspace
+
+# IDEs and editors (JetBrains, IntelliJなど)
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files (MacやWindowsのキャッシュファイル)
+.DS_Store
+Thumbs.db
+.vercel

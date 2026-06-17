@@ -1,15 +1,15 @@
 {
-  "name": "api_test",
+  "name": "salt_table",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "homepage": "https://github.com/Shun4211/api_test#readme",
+  "homepage": "https://github.com/2026-IoT/salt_table#readme",
   "bugs": {
-    "url": "https://github.com/Shun4211/api_test/issues"
+    "url": "https://github.com/2026-IoT/salt_table/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shun4211/api_test.git"
+    "url": "git+https://github.com/2026-IoT/salt_table.git"
   },
   "license": "ISC",
   "author": "",

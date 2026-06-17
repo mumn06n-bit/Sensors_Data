@@ -5,11 +5,13 @@ const API_URL = "/api/buoy"; // Vite の環境変数から API URL を取得
 const app = document.querySelector<HTMLDivElement>("#app");
 
 interface SensorRow {
-  sensorId: string;
-  timestamp: string;
-  battery: string;
-  outsideTemp: string;
-  waterTemp: string;
+    sensorId: string;
+    timestamp: string;
+    battery: string;
+    outsideTemp: string;
+    waterTemp: string;
+    conductivity: string;
+    salinity: string;
 }
 
 async function fetchData(): Promise<string | null> {
@@ -41,7 +43,9 @@ const renderTable = (data: string): string => {
             timestamp: jstDateTime, // 変換した日本時間を入れる
             battery: `${row[2]} V`,  // 単位「V」をつける
             outsideTemp: `${row[3]} ℃`, // 単位「℃」をつける
-            waterTemp: `${row[4]} ℃`   // 単位「℃」をつける
+            waterTemp: `${row[4]} ℃`,   // 単位「℃」をつける
+            conductivity: `${row[5]} mS/cm`, // 単位「mS/cm」をつける
+            salinity: `${row[6]} psu`  // 単位「psu」をつける
         };
     });
 
@@ -57,11 +61,13 @@ const renderTable = (data: string): string => {
                     <th>バッテリ電圧</th>
                     <th>外気温</th>
                     <th>水温</th>
+                    <th>電気電導度</th>
+                    <th>塩分</th>
                 </tr>
             </thead>
             <tbody>
     `;
-    
+
     namedData.forEach((row) => {
         tableHtml += `
             <tr>
@@ -70,6 +76,8 @@ const renderTable = (data: string): string => {
                 <td>${row.battery}</td>
                 <td>${row.outsideTemp}</td>
                 <td>${row.waterTemp}</td>
+                <td>${row.conductivity}</td>
+                <td>${row.salinity}</td>
             </tr>
         `;
     });
@@ -84,7 +92,7 @@ const renderTable = (data: string): string => {
 
 if (app) {
     app.innerHTML = `
-        <h2>水温センサデータ</h2>
+        <h2>塩分センサデータ</h2>
         <div id="table-container">データを読み込み中...</div>
     `;
 }

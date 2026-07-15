@@ -10,8 +10,8 @@ interface SensorRow {
     battery: string;
     outsideTemp: string;
     waterTemp: string;
-    conductivity: string;
-    salinity: string;
+    DO_percent: string;
+    DO_mgL: string;
 }
 
 async function fetchData(): Promise<string | null> {
@@ -44,8 +44,8 @@ const renderTable = (data: string): string => {
             battery: `${row[2]} V`,  // 単位「V」をつける
             outsideTemp: `${row[3]} ℃`, // 単位「℃」をつける
             waterTemp: `${row[4]} ℃`,   // 単位「℃」をつける
-            conductivity: `${row[5]} mS/cm`, // 単位「mS/cm」をつける
-            salinity: `${row[6]} psu`  // 単位「psu」をつける
+            DO_percent: `${row[5]} %`, // 単位「&」をつける
+            DO_mgL: `${row[6]} mg/L`  // 単位「mg/L」をつける
         };
     });
 
@@ -61,8 +61,8 @@ const renderTable = (data: string): string => {
                     <th>バッテリ電圧</th>
                     <th>外気温</th>
                     <th>水温</th>
-                    <th>電気電導度</th>
-                    <th>塩分</th>
+                    <th>DO</th>
+                    <th>DO</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,8 +76,8 @@ const renderTable = (data: string): string => {
                 <td>${row.battery}</td>
                 <td>${row.outsideTemp}</td>
                 <td>${row.waterTemp}</td>
-                <td>${row.conductivity}</td>
-                <td>${row.salinity}</td>
+                <td>${row.DO_percent}</td>
+                <td>${row.DO_mgL}</td>
             </tr>
         `;
     });
@@ -92,7 +92,7 @@ const renderTable = (data: string): string => {
 
 if (app) {
     app.innerHTML = `
-        <h2>塩分センサデータ</h2>
+        <h2>DOセンサ（1号機）データ</h2>
         <div id="table-container">データを読み込み中...</div>
     `;
 }

@@ -44,7 +44,7 @@ const renderTable = (data: string): string => {
             battery: `${row[2]} V`,  // 単位「V」をつける
             outsideTemp: `${row[3]} ℃`, // 単位「℃」をつける
             waterTemp: `${row[4]} ℃`,   // 単位「℃」をつける
-            DO_percent: `${row[5]} %`, // 単位「&」をつける
+            DO_percent: `${row[5]} %`, // 単位「%」をつける
             DO_mgL: `${row[6]} mg/L`  // 単位「mg/L」をつける
         };
     });

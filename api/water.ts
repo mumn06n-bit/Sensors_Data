@@ -1,4 +1,4 @@
-const API_URL: string | undefined = process.env.BUOY_API_URL;
+const API_URL: string | undefined = process.env.WATER_API_URL;
 
 export default async function handler(
   _request: any,

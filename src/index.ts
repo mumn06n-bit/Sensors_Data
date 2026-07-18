@@ -2,7 +2,7 @@ import Papa from "papaparse";
 const API_URLS = {
     water: "/api/water",
     salinity: "/api/salinity",
-    do1: "/api/buoy",
+    do1: "/api/do1",
 };
 // Vite の環境変数から API URL を取得
 

@@ -1,4 +1,5 @@
 import Papa from "papaparse";
+import "./index.css"
 const API_URLS = {
     water: "/api/water",
     salinity: "/api/salinity",

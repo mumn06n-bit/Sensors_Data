@@ -237,6 +237,8 @@ async function loadTable(apiUrl: string, sensorType: string) {
 
     if (!container) return;
 
+    container.textContent = "読み込み中...";
+
     if (data !== null) {
         container.innerHTML = renderTable(data, sensorType);
     } else {

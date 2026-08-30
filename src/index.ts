@@ -270,7 +270,7 @@ if (app) {
     </button>
 
     <div id="chart-container" style="display: none;">
-     <canvas id="water-chart"></canvas>
+     
     </div>
 
     <div id="table-container">
@@ -340,9 +340,10 @@ chartToggleButton?.addEventListener("click", () => {
         chartContainer!.style.display = "block";
 
         chartToggleButton.textContent = "グラフを非表示";
-        if (currentSensorType === "water") {
-            loadChart(API_URLS.water, "water");
-        }
+        loadChart(
+        API_URLS[currentSensorType as keyof typeof API_URLS],
+        currentSensorType
+    );
 
         // グラフを描画
     } else {
@@ -367,19 +368,33 @@ function renderChart(
     data: string,
     sensorType: string
 ) {
+    if (!chartContainer) return;
+
     if (sensorType === "water") {
+        chartContainer.innerHTML =
+            `<canvas id="water-chart"></canvas>`;
+
         renderWaterChart(data);
     }
 
     if (sensorType === "salinity") {
-         renderSalinityChart(data);
+        chartContainer.innerHTML =
+            `<canvas id="salinity-chart"></canvas>`;
+
+        renderSalinityChart(data);
     }
 
     if (sensorType === "do1") {
+        chartContainer.innerHTML =
+            `<canvas id="do1-chart"></canvas>`;
+
         renderDO1Chart(data);
     }
 
     if (sensorType === "do3") {
+        chartContainer.innerHTML =
+            `<canvas id="do3-chart"></canvas>`;
+
         renderDO3Chart(data);
     }
 }
@@ -460,6 +475,8 @@ function renderWaterChart(data: string) {
 }
 
 // 塩分グラフ
+let salinityChart: Chart | null = null;
+
 function renderSalinityChart(data: string) {
     const rows = parseData(data);
 
@@ -491,7 +508,12 @@ function renderSalinityChart(data: string) {
         "salinity-chart"
     ) as HTMLCanvasElement;
 
-    new Chart(canvas, {
+    // すでにグラフが存在していたら削除
+    if (salinityChart) {
+        salinityChart.destroy();
+    }
+
+    salinityChart= new Chart(canvas, {
         type: "line",
 
         data: {
@@ -519,6 +541,8 @@ function renderSalinityChart(data: string) {
 }
 
 // DO1号グラフ
+let do1Chart: Chart | null = null;
+
 function renderDO1Chart(data: string) {
     const rows = parseData(data);
 
@@ -554,7 +578,12 @@ function renderDO1Chart(data: string) {
         "do1-chart"
     ) as HTMLCanvasElement;
 
-    new Chart(canvas, {
+    // すでにグラフが存在していたら削除
+    if (do1Chart) {
+        do1Chart.destroy();
+    }
+
+    do1Chart = new Chart(canvas, {
         type: "line",
 
         data: {
@@ -587,6 +616,8 @@ function renderDO1Chart(data: string) {
 }
 
 // DO3号グラフ
+let do3Chart: Chart | null = null;
+
 function renderDO3Chart(data: string) {
     const rows = parseData(data);
 
@@ -622,7 +653,12 @@ function renderDO3Chart(data: string) {
         "do3-chart"
     ) as HTMLCanvasElement;
 
-    new Chart(canvas, {
+     // すでにグラフが存在していたら削除
+    if (do3Chart) {
+        do3Chart.destroy();
+    }
+
+    do3Chart = new Chart(canvas, {
         type: "line",
 
         data: {

@@ -1,5 +1,7 @@
 import Papa from "papaparse";
-import "./index.css"
+import Chart from "chart.js/auto";
+import "./index.css";
+
 const API_URLS = {
     water: "/api/water",
     salinity: "/api/salinity",
@@ -52,11 +54,11 @@ const renderTable = (data: string, sensorType: string): string => {
         return renderSalinityTable(data);
     }
 
-    if (sensorType === "do1"){
+    if (sensorType === "do1") {
         return renderDO1Table(data);
     }
     //追加
-    if (sensorType === "do3"){
+    if (sensorType === "do3") {
         return renderDO3Table(data);
     }
 
@@ -258,7 +260,14 @@ if (app) {
         <button id="salinity-tab" class="tab">塩分</button>
         <button id="do1-tab" class="tab">DO1号</button>
         <button id="do3-tab" class="tab">DO3号</button>
+    </div>
 
+    <button id="graph-toggle-button">
+      グラフ
+    </button>
+
+    <div id="graph-container" class="hidden">
+        <canvas id="water-chart"></canvas>
     </div>
 
     <div id="table-container">
@@ -302,9 +311,53 @@ async function loadTable(apiUrl: string, sensorType: string) {
 
     if (data !== null) {
         container.innerHTML = renderTable(data, sensorType);
+        if (sensorType === "water") {
+            renderWaterChart(data);
+        }
     } else {
         container.textContent = "データの取得に失敗しました。";
     }
 }
 
 loadTable(API_URLS.water, "water");
+
+//水温グラフ
+function renderWaterChart(data: string) {
+    const rows = parseData(data);
+
+    const labels = rows.map((row: any) => {
+        console.log("row:", row);
+        console.log("日時:", row[1]);
+        const date = new Date(row[1]);
+
+        return date.toLocaleString("ja-JP", {
+            timeZone: "Asia/Tokyo",
+        });
+    });
+
+    const waterTemps = rows.map((row: any) => {
+        return Number(row[4]);
+    });
+
+    const canvas = document.getElementById(
+        "water-chart"
+    ) as HTMLCanvasElement;
+
+    new Chart(canvas, {
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [
+                {
+                    label: "水温",
+
+                    data: waterTemps,
+
+                    borderWidth: 2,
+                },
+            ],
+        },
+    });
+}

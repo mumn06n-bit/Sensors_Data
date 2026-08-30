@@ -6,6 +6,7 @@ const APIS = {
   Water: process.env.WATER_API_URL,
   Salinity: process.env.SALINITY_API_URL,
   DO1: process.env.DO1_API_URL,
+  DO3: process.env.DO3_API_URL,//追加
 };
 
 async function testApi() {

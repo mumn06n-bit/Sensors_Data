@@ -372,28 +372,45 @@ function renderChart(
 
     if (sensorType === "water") {
         chartContainer.innerHTML =
-            `<canvas id="water-chart"></canvas>`;
+            `<div class="chart-scroll-area">
+            <div class="chart-inner">
+                <canvas id="water-chart"></canvas>
+            </div>
+        </div>
+    `;
 
         renderWaterChart(data);
     }
 
     if (sensorType === "salinity") {
         chartContainer.innerHTML =
-            `<canvas id="salinity-chart"></canvas>`;
+            `<div class="chart-scroll-area">
+            <div class="chart-inner">
+                <canvas id="salinity-chart"></canvas>
+            </div>
+        </div>`;
 
         renderSalinityChart(data);
     }
 
     if (sensorType === "do1") {
         chartContainer.innerHTML =
-            `<canvas id="do1-chart"></canvas>`;
+            `<div class="chart-scroll-area">
+            <div class="chart-inner">
+                <canvas id="do1-chart"></canvas>
+            </div>
+        </div>`;
 
         renderDO1Chart(data);
     }
 
     if (sensorType === "do3") {
         chartContainer.innerHTML =
-            `<canvas id="do3-chart"></canvas>`;
+            `<div class="chart-scroll-area">
+            <div class="chart-inner">
+                <canvas id="do3-chart"></canvas>
+            </div>
+        </div>`;
 
         renderDO3Chart(data);
     }
@@ -433,12 +450,10 @@ function renderWaterChart(data: string) {
         });
     });
 
-    // 水温
     const waterTemps = rows.map((row: any) => {
         return Number(row[4]);
     });
 
-    // 外気温
     const outsideTemps = rows.map((row: any) => {
         return Number(row[3]);
     });
@@ -447,7 +462,13 @@ function renderWaterChart(data: string) {
         "water-chart"
     ) as HTMLCanvasElement;
 
-    // すでにグラフが存在していたら削除
+    const chartWidth = Math.max(
+        rows.length * 50,
+        800
+    );
+
+    canvas.width = chartWidth;
+
     if (waterChart) {
         waterChart.destroy();
     }
@@ -470,6 +491,10 @@ function renderWaterChart(data: string) {
                     borderWidth: 2,
                 },
             ],
+        },
+
+        options: {
+            responsive: false,
         },
     });
 }
@@ -508,6 +533,13 @@ function renderSalinityChart(data: string) {
         "salinity-chart"
     ) as HTMLCanvasElement;
 
+    const chartWidth = Math.max(
+        rows.length * 50,
+        800
+    );
+
+    canvas.width = chartWidth;
+
     // すでにグラフが存在していたら削除
     if (salinityChart) {
         salinityChart.destroy();
@@ -536,6 +568,9 @@ function renderSalinityChart(data: string) {
                     borderWidth: 2,
                 },
             ],
+        },
+        options: {
+            responsive: false,
         },
     });
 }
@@ -578,6 +613,13 @@ function renderDO1Chart(data: string) {
         "do1-chart"
     ) as HTMLCanvasElement;
 
+    const chartWidth = Math.max(
+        rows.length * 50,
+        800
+    );
+
+    canvas.width = chartWidth;
+
     // すでにグラフが存在していたら削除
     if (do1Chart) {
         do1Chart.destroy();
@@ -611,6 +653,9 @@ function renderDO1Chart(data: string) {
                     borderWidth: 2,
                 },
             ],
+        },
+        options: {
+            responsive: false,
         },
     });
 }
@@ -653,6 +698,13 @@ function renderDO3Chart(data: string) {
         "do3-chart"
     ) as HTMLCanvasElement;
 
+    const chartWidth = Math.max(
+        rows.length * 50,
+        800
+    );
+
+    canvas.width = chartWidth;
+
      // すでにグラフが存在していたら削除
     if (do3Chart) {
         do3Chart.destroy();
@@ -686,6 +738,9 @@ function renderDO3Chart(data: string) {
                     borderWidth: 2,
                 },
             ],
+        },
+        options: {
+            responsive: false,
         },
     });
 }

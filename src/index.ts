@@ -463,7 +463,7 @@ function renderWaterChart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        200,
+        rows.length * 20,
         800
     );
 
@@ -534,7 +534,7 @@ function renderSalinityChart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        200,
+        rows.length * 20,
         800
     );
 
@@ -614,7 +614,7 @@ function renderDO1Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        200,
+        rows.length * 20,
         800
     );
 
@@ -699,7 +699,7 @@ function renderDO3Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        200,
+        rows.length * 20,
         800
     );
 

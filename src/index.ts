@@ -266,7 +266,7 @@ if (app) {
     </div>
 
     <button id="chart-toggle-button">
-        グラフ
+        グラフを表示
     </button>
 
     <div id="chart-container" style="display: none;">
@@ -304,6 +304,10 @@ salinityTab?.addEventListener("click", () => {
     currentSensorType = "salinity";
     setActiveTab(salinityTab);
     loadTable(API_URLS.salinity, "salinity");
+
+    if (isChartVisible) {
+        loadChart(API_URLS.salinity, "salinity");
+    }
 });
 
 do1Tab?.addEventListener("click", () => {
@@ -311,6 +315,10 @@ do1Tab?.addEventListener("click", () => {
 
     setActiveTab(do1Tab);
     loadTable(API_URLS.do1, "do1");
+
+    if (isChartVisible) {
+        loadChart(API_URLS.do1, "do1");
+    }
 });
 
 do3Tab?.addEventListener("click", () => {
@@ -318,6 +326,10 @@ do3Tab?.addEventListener("click", () => {
 
     setActiveTab(do3Tab);
     loadTable(API_URLS.do3, "do3");
+
+    if (isChartVisible) {
+        loadChart(API_URLS.do3, "do3");
+    }
 });
 
 //グラフ表示ボタン
@@ -359,17 +371,17 @@ function renderChart(
         renderWaterChart(data);
     }
 
-    // if (sensorType === "salinity") {
-    //     renderSalinityChart(data);
-    // }
+    if (sensorType === "salinity") {
+         renderSalinityChart(data);
+    }
 
-    // if (sensorType === "do1") {
-    //     renderDO1Chart(data);
-    // }
+    if (sensorType === "do1") {
+        renderDO1Chart(data);
+    }
 
-    // if (sensorType === "do3") {
-    //     renderDO3Chart(data);
-    // }
+    if (sensorType === "do3") {
+        renderDO3Chart(data);
+    }
 }
 
 // API からデータを取得して表を反映
@@ -392,7 +404,6 @@ async function loadTable(apiUrl: string, sensorType: string) {
 
 loadTable(API_URLS.water, "water");
 
-//水温グラフ
 // 水温グラフ
 let waterChart: Chart | null = null;
 
@@ -441,6 +452,201 @@ function renderWaterChart(data: string) {
                 {
                     label: "外気温",
                     data: outsideTemps,
+                    borderWidth: 2,
+                },
+            ],
+        },
+    });
+}
+
+// 塩分グラフ
+function renderSalinityChart(data: string) {
+    const rows = parseData(data);
+
+    // 横軸：日時
+    const labels = rows.map((row: any) => {
+        const date = new Date(row[1]);
+
+        return date.toLocaleString("ja-JP", {
+            timeZone: "Asia/Tokyo",
+        });
+    });
+
+    // 水温
+    const waterTemps = rows.map((row: any) => {
+        return Number(row[4]);
+    });
+
+    // 外気温
+    const outsideTemps = rows.map((row: any) => {
+        return Number(row[3]);
+    });
+
+    // 塩分
+    const salinityValues = rows.map((row: any) => {
+        return Number(row[6]);
+    });
+
+    const canvas = document.getElementById(
+        "salinity-chart"
+    ) as HTMLCanvasElement;
+
+    new Chart(canvas, {
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [
+                {
+                    label: "水温",
+                    data: waterTemps,
+                    borderWidth: 2,
+                },
+                {
+                    label: "外気温",
+                    data: outsideTemps,
+                    borderWidth: 2,
+                },
+                {
+                    label: "塩分",
+                    data: salinityValues,
+                    borderWidth: 2,
+                },
+            ],
+        },
+    });
+}
+
+// DO1号グラフ
+function renderDO1Chart(data: string) {
+    const rows = parseData(data);
+
+    const labels = rows.map((row: any) => {
+        const date = new Date(row[1]);
+
+        return date.toLocaleString("ja-JP", {
+            timeZone: "Asia/Tokyo",
+        });
+    });
+
+    // 外気温
+    const outsideTemps = rows.map((row: any) => {
+        return Number(row[3]);
+    });
+
+    // 水温
+    const waterTemps = rows.map((row: any) => {
+        return Number(row[4]);
+    });
+
+    // DO(%)
+    const doPercent = rows.map((row: any) => {
+        return Number(row[5]);
+    });
+
+    // DO(mg/L)
+    const doMgL = rows.map((row: any) => {
+        return Number(row[6]);
+    });
+
+    const canvas = document.getElementById(
+        "do1-chart"
+    ) as HTMLCanvasElement;
+
+    new Chart(canvas, {
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [
+                {
+                    label: "外気温",
+                    data: outsideTemps,
+                    borderWidth: 2,
+                },
+                {
+                    label: "水温",
+                    data: waterTemps,
+                    borderWidth: 2,
+                },
+                {
+                    label: "DO(%)",
+                    data: doPercent,
+                    borderWidth: 2,
+                },
+                {
+                    label: "DO(mg/L)",
+                    data: doMgL,
+                    borderWidth: 2,
+                },
+            ],
+        },
+    });
+}
+
+// DO3号グラフ
+function renderDO3Chart(data: string) {
+    const rows = parseData(data);
+
+    const labels = rows.map((row: any) => {
+        const date = new Date(row[1]);
+
+        return date.toLocaleString("ja-JP", {
+            timeZone: "Asia/Tokyo",
+        });
+    });
+
+    // 外気温
+    const outsideTemps = rows.map((row: any) => {
+        return Number(row[3]);
+    });
+
+    // 水温
+    const waterTemps = rows.map((row: any) => {
+        return Number(row[4]);
+    });
+
+    // DO(%)
+    const doPercent = rows.map((row: any) => {
+        return Number(row[5]);
+    });
+
+    // DO(mg/L)
+    const doMgL = rows.map((row: any) => {
+        return Number(row[6]);
+    });
+
+    const canvas = document.getElementById(
+        "do3-chart"
+    ) as HTMLCanvasElement;
+
+    new Chart(canvas, {
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [
+                {
+                    label: "外気温",
+                    data: outsideTemps,
+                    borderWidth: 2,
+                },
+                {
+                    label: "水温",
+                    data: waterTemps,
+                    borderWidth: 2,
+                },
+                {
+                    label: "DO(%)",
+                    data: doPercent,
+                    borderWidth: 2,
+                },
+                {
+                    label: "DO(mg/L)",
+                    data: doMgL,
                     borderWidth: 2,
                 },
             ],

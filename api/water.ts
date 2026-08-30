@@ -39,7 +39,16 @@ export default async function handler(
 
     // 3. ブラウザにデータを返す
     return response.status(200).send(data);
-  } catch (_error) {
-    return response.status(500).json({ error: "通信エラーが発生しました。" });
   }
+  catch (error) {
+  console.error("API取得エラー:", error);
+
+  return response.status(500).json({
+    error: "通信エラーが発生しました。",
+    detail: error instanceof Error ? error.message : String(error),
+  });
+}
+  // } catch (_error) {
+  //   return response.status(500).json({ error: "通信エラーが発生しました。" });
+  // }
 }

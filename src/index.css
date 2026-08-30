@@ -44,3 +44,12 @@ td {
     padding: 8px;
     text-align: center;
 }
+
+.chart-scroll-area {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.chart-inner {
+    min-width: 1200px;
+}

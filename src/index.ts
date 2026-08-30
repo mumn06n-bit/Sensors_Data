@@ -8,6 +8,9 @@ const API_URLS = {
     do1: "/api/do1",
     do3: "/api/do3", //追加
 };
+
+//グラフの表示/非表示
+let isChartVisible = false;
 // Vite の環境変数から API URL を取得
 
 // API からデータを取得して表示するためのコード
@@ -262,12 +265,12 @@ if (app) {
         <button id="do3-tab" class="tab">DO3号</button>
     </div>
 
-    <button id="graph-toggle-button">
-      グラフ
+    <button id="chart-toggle-button">
+        グラフ
     </button>
 
-    <div id="graph-container" class="hidden">
-        <canvas id="water-chart"></canvas>
+    <div id="chart-container" style="display: none;">
+     <canvas id="water-chart"></canvas>
     </div>
 
     <div id="table-container">
@@ -280,24 +283,94 @@ const salinityTab = document.getElementById("salinity-tab");
 const do1Tab = document.getElementById("do1-tab");
 const do3Tab = document.getElementById("do3-tab");//追加
 
+//グラフ表示ボタン
+const chartToggleButton =
+    document.getElementById("chart-toggle-button");
+const chartContainer =
+    document.getElementById("chart-container");
+
+let currentSensorType = "water";
+
 waterTab?.addEventListener("click", () => {
+    currentSensorType = "water";
     setActiveTab(waterTab);
     loadTable(API_URLS.water, "water");
+
+    if (isChartVisible) {
+        loadChart(API_URLS.water, "water");
+    }
 });
 salinityTab?.addEventListener("click", () => {
+    currentSensorType = "salinity";
     setActiveTab(salinityTab);
     loadTable(API_URLS.salinity, "salinity");
 });
 
 do1Tab?.addEventListener("click", () => {
+    currentSensorType = "do1";
+
     setActiveTab(do1Tab);
     loadTable(API_URLS.do1, "do1");
 });
 
 do3Tab?.addEventListener("click", () => {
+    currentSensorType = "do3";
+
     setActiveTab(do3Tab);
     loadTable(API_URLS.do3, "do3");
 });
+
+//グラフ表示ボタン
+chartToggleButton?.addEventListener("click", () => {
+    isChartVisible = !isChartVisible;
+
+    if (isChartVisible) {
+        chartContainer!.style.display = "block";
+
+        chartToggleButton.textContent = "グラフを非表示";
+        if (currentSensorType === "water") {
+            loadChart(API_URLS.water, "water");
+        }
+
+        // グラフを描画
+    } else {
+        chartContainer!.style.display = "none";
+
+        chartToggleButton.textContent = "グラフを表示";
+    }
+});
+
+//グラフ描画
+async function loadChart(
+    apiUrl: string,
+    sensorType: string
+) {
+    const data = await fetchData(apiUrl);
+
+    if (!data) return;
+
+    renderChart(data, sensorType);
+}
+function renderChart(
+    data: string,
+    sensorType: string
+) {
+    if (sensorType === "water") {
+        renderWaterChart(data);
+    }
+
+    // if (sensorType === "salinity") {
+    //     renderSalinityChart(data);
+    // }
+
+    // if (sensorType === "do1") {
+    //     renderDO1Chart(data);
+    // }
+
+    // if (sensorType === "do3") {
+    //     renderDO3Chart(data);
+    // }
+}
 
 // API からデータを取得して表を反映
 async function loadTable(apiUrl: string, sensorType: string) {
@@ -311,9 +384,7 @@ async function loadTable(apiUrl: string, sensorType: string) {
 
     if (data !== null) {
         container.innerHTML = renderTable(data, sensorType);
-        if (sensorType === "water") {
-            renderWaterChart(data);
-        }
+        
     } else {
         container.textContent = "データの取得に失敗しました。";
     }
@@ -322,12 +393,13 @@ async function loadTable(apiUrl: string, sensorType: string) {
 loadTable(API_URLS.water, "water");
 
 //水温グラフ
+// 水温グラフ
+let waterChart: Chart | null = null;
+
 function renderWaterChart(data: string) {
     const rows = parseData(data);
 
     const labels = rows.map((row: any) => {
-        console.log("row:", row);
-        console.log("日時:", row[1]);
         const date = new Date(row[1]);
 
         return date.toLocaleString("ja-JP", {
@@ -335,15 +407,26 @@ function renderWaterChart(data: string) {
         });
     });
 
+    // 水温
     const waterTemps = rows.map((row: any) => {
         return Number(row[4]);
+    });
+
+    // 外気温
+    const outsideTemps = rows.map((row: any) => {
+        return Number(row[3]);
     });
 
     const canvas = document.getElementById(
         "water-chart"
     ) as HTMLCanvasElement;
 
-    new Chart(canvas, {
+    // すでにグラフが存在していたら削除
+    if (waterChart) {
+        waterChart.destroy();
+    }
+
+    waterChart = new Chart(canvas, {
         type: "line",
 
         data: {
@@ -352,9 +435,12 @@ function renderWaterChart(data: string) {
             datasets: [
                 {
                     label: "水温",
-
                     data: waterTemps,
-
+                    borderWidth: 2,
+                },
+                {
+                    label: "外気温",
+                    data: outsideTemps,
                     borderWidth: 2,
                 },
             ],

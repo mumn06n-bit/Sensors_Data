@@ -46,7 +46,13 @@ export default async function handler(
   return response.status(500).json({
     error: "通信エラーが発生しました。",
     detail: error instanceof Error ? error.message : String(error),
+
+    cause:
+      error instanceof Error && error.cause
+        ? String(error.cause)
+        : undefined,
   });
+
 }
   // } catch (_error) {
   //   return response.status(500).json({ error: "通信エラーが発生しました。" });

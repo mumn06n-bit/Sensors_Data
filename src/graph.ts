@@ -465,7 +465,7 @@ function renderDO1Chart(data: string) {
                         text: "%",
                     },
 
-                    min: 65,
+                    min: 59,
                     max: 100,
                 },
 
@@ -600,7 +600,7 @@ function renderDO3Chart(data: string) {
                         text: "%",
                     },
 
-                    min: 65,
+                    min: 59,
                     max: 100,
                 },
 

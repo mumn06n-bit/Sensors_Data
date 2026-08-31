@@ -234,11 +234,9 @@ function renderWaterChart(data: string) {
 
 // 塩分グラフ
 let salinityChart: Chart | null = null;
-let salinityYAxisChart: Chart | null = null;
 
 function renderSalinityChart(data: string) {
     const rows = parseData(data);
-    const chartHeight = 400;
 
     // 横軸：日時
     const labels = rows.map((row: any) => {
@@ -264,72 +262,6 @@ function renderSalinityChart(data: string) {
         return Number(row[6]);
     });
 
-    // 先に縦軸のみ描画
-    const yAxisCanvas = document.getElementById(
-        "salinity-y-axis"
-    ) as HTMLCanvasElement;
-
-    if (salinityYAxisChart) {
-        salinityYAxisChart.destroy();
-    }
-    yAxisCanvas.height = chartHeight;
-    salinityYAxisChart = new Chart(yAxisCanvas, {
-        type: "line",
-
-        data: {
-            labels: labels,
-
-            datasets: [
-                {
-                    label: "水温",
-                    data: waterTemps,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                },
-                {
-                    label: "外気温",
-                    data: outsideTemps,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                },
-                {
-                    label: "塩分",
-                    data: salinityValues,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                },
-            ],
-        },
-
-        options: {
-            responsive: false,
-
-            plugins: {
-                legend: {
-                    display: false,
-                },
-            },
-
-            scales: {
-                x: {
-                    ticks: {
-                        display: false,
-                    },
-                    grid: {
-                        display: false,
-                    },
-                    border: {
-                        display: false,
-                    },
-                },
-
-                y: {
-                    display: true,
-                },
-            },
-        },
-    });
-
     const canvas = document.getElementById(
         "salinity-chart"
     ) as HTMLCanvasElement;
@@ -340,7 +272,7 @@ function renderSalinityChart(data: string) {
         800
     );
     canvas.width = chartWidth;
-    canvas.height = chartHeight;;
+    canvas.height = 400;
 
     // すでにグラフが存在していたら削除
     if (salinityChart) {
@@ -381,11 +313,6 @@ function renderSalinityChart(data: string) {
             responsive: false,
             plugins: {
                 legend: {
-                    display: false,
-                },
-            },
-            scales: {
-                y: {
                     display: false,
                 },
             },

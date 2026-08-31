@@ -312,7 +312,7 @@ function renderSalinityChart(data: string) {
 
     // 縦横幅
     const chartWidth = Math.max(
-        displayRows.length * 20,
+        rows.length * 20,
         800
     );
     canvas.width = chartWidth;

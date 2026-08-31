@@ -316,7 +316,7 @@ function renderSalinityChart(data: string) {
                     borderColor: CHART_COLORS.salinity,
                     backgroundColor: CHART_COLORS.salinity,
                     borderWidth: 2,
-                    yAxisID: "ySalinity",
+                    yAxisID: "ySalinityLeft",
                 },
             ],
         },
@@ -333,8 +333,8 @@ function renderSalinityChart(data: string) {
                     display: false,
                 },
 
-                // 塩分用の軸
-                ySalinity: {
+                // 左側の塩分用の軸
+                ySalinityLeft: {
                     display: true,
                     position: "left",
 
@@ -345,6 +345,24 @@ function renderSalinityChart(data: string) {
 
                     min: 29.5,
                     max: 34.5,
+                },
+
+                // 右側の塩分用の軸
+                ySalinityRight: {
+                    display: true,
+                    position: "right",
+
+                    title: {
+                        display: true,
+                        text: "psu",
+                    },
+
+                    min: 29.5,
+                    max: 34.5,
+
+                    grid: {
+                        drawOnChartArea: false,
+                    },
                 },
             },
         },
@@ -465,8 +483,8 @@ function renderDO1Chart(data: string) {
                         text: "%",
                     },
 
-                    min: 59,
-                    max: 100,
+                    min: 50,
+                    max: 105,
                 },
 
                 // DO(mg/L)用
@@ -478,8 +496,8 @@ function renderDO1Chart(data: string) {
                         display: true,
                         text: "mg/L",
                     },
-                    min:3.5,
-                    max:8,
+                    min: 3.5,
+                    max: 8,
                 },
             },
         },
@@ -600,8 +618,8 @@ function renderDO3Chart(data: string) {
                         text: "%",
                     },
 
-                    min: 59,
-                    max: 100,
+                    min: 50,
+                    max: 105,
                 },
 
                 // DO(mg/L)用
@@ -613,8 +631,8 @@ function renderDO3Chart(data: string) {
                         display: true,
                         text: "mg/L",
                     },
-                    min:3.5,
-                    max:8,
+                    min: 3.5,
+                    max: 8,
                 },
             },
         },

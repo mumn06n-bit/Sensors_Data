@@ -233,8 +233,8 @@ function renderWaterChart(data: string) {
                         display: true,
                         text: "℃",
                     },
-                    min:15,
-                    max:40,
+                    min: 15,
+                    max: 40,
                 },
                 yTempRight: {
                     display: true,
@@ -243,8 +243,8 @@ function renderWaterChart(data: string) {
                         display: true,
                         text: "℃",
                     },
-                    min:15,
-                    max:40,
+                    min: 15,
+                    max: 40,
                 },
             },
         },
@@ -268,7 +268,7 @@ function renderSalinityChart(data: string) {
 
     console.log("塩分のデータ件数:", rows.length);
 
-    
+
     const maxPoints = 500;
     const step = Math.ceil(rows.length / maxPoints);
     const displayRows = rows.filter(
@@ -310,11 +310,17 @@ function renderSalinityChart(data: string) {
 
     // 縦横幅
     const chartWidth = Math.max(
-        rows.length * 20,
+        displayRows.length * 20,
         800
     );
     canvas.width = chartWidth;
     canvas.height = 400;
+
+    const chartWrapper = canvas.parentElement as HTMLElement;
+
+    if (chartWrapper) {
+        chartWrapper.style.width = `${chartWidth}px`;
+    }
 
     // すでにグラフが存在していたら削除
     if (salinityChart) {
@@ -470,6 +476,12 @@ function renderDO1Chart(data: string) {
     );
     canvas.width = chartWidth;
     canvas.height = 400;
+    
+    const chartWrapper = canvas.parentElement as HTMLElement;
+
+    if (chartWrapper) {
+        chartWrapper.style.width = `${chartWidth}px`;
+    }
 
     // すでにグラフが存在していたら削除
     if (do1Chart) {
@@ -577,7 +589,7 @@ function renderDO3Chart(data: string) {
     const rows = parseData(data);
 
     console.log("DO3のデータ件数:", rows.length);
-    
+
     const maxPoints = 500;
     const step = Math.ceil(rows.length / maxPoints);
     const displayRows = rows.filter(
@@ -623,11 +635,17 @@ function renderDO3Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        rows.length * 20,
+        displayRows.length * 20,
         800
     );
     canvas.width = chartWidth;
     canvas.height = 400;
+    
+    const chartWrapper = canvas.parentElement as HTMLElement;
+
+    if (chartWrapper) {
+        chartWrapper.style.width = `${chartWidth}px`;
+    }
 
     // すでにグラフが存在していたら削除
     if (do3Chart) {

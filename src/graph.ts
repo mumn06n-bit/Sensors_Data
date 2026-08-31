@@ -157,7 +157,7 @@ const CHART_COLORS = {
     waterTemp: "#4FC3F7",
     outsideTemp: "#EF5350",
     salinity: "#faa423",
-    doPercent: "#0cc215",
+    doPercent: "#1dd626",
     doMgL: "#0c7412",
 
     translucentWaterTemp: "#4fc2f786",

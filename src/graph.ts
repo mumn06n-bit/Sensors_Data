@@ -162,6 +162,12 @@ function renderWaterChart(data: string) {
 
         return date.toLocaleString("ja-JP", {
             timeZone: "Asia/Tokyo",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
         });
     });
 
@@ -229,6 +235,15 @@ function renderWaterChart(data: string) {
             },
         },
     });
+    requestAnimationFrame(() => {
+        const scrollArea = document.querySelector(
+            ".chart-scroll-area"
+        ) as HTMLElement;
+
+        if (scrollArea) {
+            scrollArea.scrollLeft = scrollArea.scrollWidth;
+        }
+    });
 }
 
 // 塩分グラフ
@@ -243,6 +258,12 @@ function renderSalinityChart(data: string) {
 
         return date.toLocaleString("ja-JP", {
             timeZone: "Asia/Tokyo",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
         });
     });
 
@@ -358,6 +379,15 @@ function renderSalinityChart(data: string) {
             },
         },
     });
+    requestAnimationFrame(() => {
+        const scrollArea = document.querySelector(
+            ".chart-scroll-area"
+        ) as HTMLElement;
+
+        if (scrollArea) {
+            scrollArea.scrollLeft = scrollArea.scrollWidth;
+        }
+    });
 }
 
 // DO1号グラフ
@@ -366,7 +396,7 @@ let do1Chart: Chart | null = null;
 function renderDO1Chart(data: string) {
     const rows = parseData(data);
 
-    const maxPoints = 600;
+    const maxPoints = 750;
     const step = Math.ceil(rows.length / maxPoints);
     const displayRows = rows.filter(
         (_, index) => index % step === 0
@@ -377,6 +407,12 @@ function renderDO1Chart(data: string) {
 
         return date.toLocaleString("ja-JP", {
             timeZone: "Asia/Tokyo",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
         });
     });
 
@@ -499,6 +535,15 @@ function renderDO1Chart(data: string) {
             },
         },
     });
+    requestAnimationFrame(() => {
+        const scrollArea = document.querySelector(
+            ".chart-scroll-area"
+        ) as HTMLElement;
+
+        if (scrollArea) {
+            scrollArea.scrollLeft = scrollArea.scrollWidth;
+        }
+    });
 }
 
 // DO3号グラフ
@@ -512,6 +557,12 @@ function renderDO3Chart(data: string) {
 
         return date.toLocaleString("ja-JP", {
             timeZone: "Asia/Tokyo",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
         });
     });
 
@@ -633,5 +684,14 @@ function renderDO3Chart(data: string) {
                 },
             },
         },
+    });
+    requestAnimationFrame(() => {
+        const scrollArea = document.querySelector(
+            ".chart-scroll-area"
+        ) as HTMLElement;
+
+        if (scrollArea) {
+            scrollArea.scrollLeft = scrollArea.scrollWidth;
+        }
     });
 }

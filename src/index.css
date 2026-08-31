@@ -1,34 +1,18 @@
 #app {
     width: 100%;
-    max-width: 100%;
-    min-width: 0;
     box-sizing: border-box;
 }
 
 #table-container {
     width: 100%;
     max-width: 100%;
-    min-width: 0;
+    overflow-x: auto;
     box-sizing: border-box;
 }
 
 #table-container table {
     width: 100%;
     min-width: max-content;
-}
-
-.table-scroll-area {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    overflow-x: auto;
-    box-sizing: border-box;
-}
-
-.table-scroll-area table {
-    width: max-content;
-    width: 100%;
-    border-collapse: collapse;
 }
 
 #tab-container {

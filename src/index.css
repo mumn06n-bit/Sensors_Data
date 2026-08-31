@@ -1,31 +1,16 @@
-html,
-body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
 #app {
     width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
 #tab-container {
     display: flex;
     width: 100%;
-    box-sizing: border-box;
     border-bottom: 2px solid #3D76A4;
-    margin-bottom: 0;
-    max-width: none;
-    margin: 0;
-    padding: 0;
 }
 
 .tab {
-    flex: 1 1 0;
+    flex: 1;
     min-width: 0;
     box-sizing: border-box;
     padding: 12px;
@@ -76,8 +61,6 @@ td {
 .chart-main {
     display: flex;
     width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
 }
 
 .chart-legend {
@@ -92,7 +75,6 @@ td {
     overflow-x: auto;
     flex: 1;
     min-width: 0;
-    box-sizing: border-box;
 }
 
 .chart-wrapper {

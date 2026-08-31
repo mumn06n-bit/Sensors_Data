@@ -107,7 +107,7 @@ export function renderChart(
                 </div>
                 <div class="chart-scroll-area">
                     <div class="chart-wrapper">
-                        <canvas id="do3-chart"></canvas>
+                        <canvas id="do1-chart"></canvas>
                     </div>
                 </div>
             </div>`;
@@ -117,11 +117,37 @@ export function renderChart(
 
     if (sensorType === "do3") {
         chartContainer.innerHTML =
-            `<div class="chart-scroll-area">
-            <div class="chart-inner">
-                <canvas id="do3-chart"></canvas>
+            `<div class="chart-legend">
+                <span class="legend-item">
+                    <span class="legend-color water-temp"></span>
+                    水温
+                </span>
+
+                <span class="legend-item">
+                    <span class="legend-color outside-temp"></span>
+                    外気温
+                </span>
+    
+                <span class="legend-item">
+                    <span class="legend-color do-percent"></span>
+                    DO（%）
+                </span>
+
+                <span class="legend-item">
+                    <span class="legend-color do-MgL"></span>
+                    DO（mg/L）
+                </span>
             </div>
-        </div>`;
+            <div class="chart-main">
+                <div class="chart-y-axis">
+                    <canvas id="salinity-y-axis"></canvas>
+                </div>
+                <div class="chart-scroll-area">
+                    <div class="chart-wrapper">
+                        <canvas id="do3-chart"></canvas>
+                    </div>
+                </div>
+            </div>`;
 
         renderDO3Chart(data);
     }

@@ -68,3 +68,35 @@ td {
 .chart-wrapper {
     width: max-content;
 }
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+}
+
+.water-temp {
+    background-color: #4FC3F7;
+}
+
+.outside-temp {
+    background-color: #EF5350;
+}
+
+.salinity {
+    background-color: #FFB23E;
+}
+
+.do-percent {
+    background-color: #91EE96;
+}
+
+.do-MgL {
+    background-color: #25852a;
+}

@@ -33,9 +33,6 @@ export function renderChart(
                 </span>
             </div>
             <div class="chart-main">
-                <div class="chart-y-axis">
-                    <canvas id="salinity-y-axis"></canvas>
-                </div>
                 <div class="chart-scroll-area">
                     <div class="chart-wrapper">
                         <canvas id="water-chart"></canvas>
@@ -65,9 +62,6 @@ export function renderChart(
                 </span>
             </div>
             <div class="chart-main">
-                <div class="chart-y-axis">
-                    <canvas id="salinity-y-axis"></canvas>
-                </div>
                 <div class="chart-scroll-area">
                     <div class="chart-wrapper">
                         <canvas id="salinity-chart"></canvas>
@@ -102,9 +96,6 @@ export function renderChart(
                 </span>
             </div>
             <div class="chart-main">
-                <div class="chart-y-axis">
-                    <canvas id="salinity-y-axis"></canvas>
-                </div>
                 <div class="chart-scroll-area">
                     <div class="chart-wrapper">
                         <canvas id="do1-chart"></canvas>
@@ -139,9 +130,6 @@ export function renderChart(
                 </span>
             </div>
             <div class="chart-main">
-                <div class="chart-y-axis">
-                    <canvas id="salinity-y-axis"></canvas>
-                </div>
                 <div class="chart-scroll-area">
                     <div class="chart-wrapper">
                         <canvas id="do3-chart"></canvas>

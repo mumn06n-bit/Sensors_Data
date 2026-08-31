@@ -50,12 +50,12 @@ export function renderChart(
         chartContainer.innerHTML =
             ` <div class="chart-legend">
                 <span class="legend-item">
-                    <span class="legend-color water-temp"></span>
+                    <span class="legend-color translucent-water-temp"></span>
                     水温
                 </span>
 
                 <span class="legend-item">
-                    <span class="legend-color outside-temp"></span>
+                    <span class="legend-color translucent-outside-temp"></span>
                     外気温
                 </span>
     
@@ -82,12 +82,12 @@ export function renderChart(
         chartContainer.innerHTML =
             `<div class="chart-legend">
                 <span class="legend-item">
-                    <span class="legend-color water-temp"></span>
+                    <span class="legend-color translucent-water-temp"></span>
                     水温
                 </span>
 
                 <span class="legend-item">
-                    <span class="legend-color outside-temp"></span>
+                    <span class="legend-color translucent-outside-temp"></span>
                     外気温
                 </span>
     
@@ -119,12 +119,12 @@ export function renderChart(
         chartContainer.innerHTML =
             `<div class="chart-legend">
                 <span class="legend-item">
-                    <span class="legend-color water-temp"></span>
+                    <span class="legend-color translucent-water-temp"></span>
                     水温
                 </span>
 
                 <span class="legend-item">
-                    <span class="legend-color outside-temp"></span>
+                    <span class="legend-color translucent-outside-temp"></span>
                     外気温
                 </span>
     
@@ -159,6 +159,9 @@ const CHART_COLORS = {
     salinity: "#ffb23e",
     doPercent: "#91ee96",
     doMgL: "#25852a",
+
+    translucentWaterTemp: "#4fc2f786",
+    translucentOutsideTemp: "#ef53507c",
 };
 // 水温グラフ
 let waterChart: Chart | null = null;
@@ -297,16 +300,16 @@ function renderSalinityChart(data: string) {
                 {
                     label: "水温",
                     data: waterTemps,
-                    borderColor: CHART_COLORS.waterTemp,
-                    backgroundColor: CHART_COLORS.waterTemp,
+                    borderColor: CHART_COLORS.translucentWaterTemp,
+                    backgroundColor: CHART_COLORS.translucentWaterTemp,
                     borderWidth: 2,
                     yAxisID: "yTemp",
                 },
                 {
                     label: "外気温",
                     data: outsideTemps,
-                    borderColor: CHART_COLORS.outsideTemp,
-                    backgroundColor: CHART_COLORS.outsideTemp,
+                    borderColor: CHART_COLORS.translucentOutsideTemp,
+                    backgroundColor: CHART_COLORS.translucentOutsideTemp,
                     borderWidth: 2,
                     yAxisID: "yTemp",
                 },
@@ -429,16 +432,16 @@ function renderDO1Chart(data: string) {
                 {
                     label: "水温",
                     data: waterTemps,
-                    borderColor: CHART_COLORS.waterTemp,
-                    backgroundColor: CHART_COLORS.waterTemp,
+                    borderColor: CHART_COLORS.translucentWaterTemp,
+                    backgroundColor: CHART_COLORS.translucentWaterTemp,
                     borderWidth: 2,
                     yAxisID: "yTemp",
                 },
                 {
                     label: "外気温",
                     data: outsideTemps,
-                    borderColor: CHART_COLORS.outsideTemp,
-                    backgroundColor: CHART_COLORS.outsideTemp,
+                    borderColor: CHART_COLORS.translucentOutsideTemp,
+                    backgroundColor: CHART_COLORS.translucentOutsideTemp,
                     borderWidth: 2,
                     yAxisID: "yTemp",
                 },
@@ -564,16 +567,16 @@ function renderDO3Chart(data: string) {
                 {
                     label: "水温",
                     data: waterTemps,
-                    borderColor: CHART_COLORS.waterTemp,
-                    backgroundColor: CHART_COLORS.waterTemp,
+                    borderColor: CHART_COLORS.translucentWaterTemp,
+                    backgroundColor: CHART_COLORS.translucentWaterTemp,
                     borderWidth: 2,
                     yAxisID: "yTemp",
                 },
                 {
                     label: "外気温",
                     data: outsideTemps,
-                    borderColor: CHART_COLORS.outsideTemp,
-                    backgroundColor: CHART_COLORS.outsideTemp,
+                    borderColor: CHART_COLORS.translucentOutsideTemp,
+                    backgroundColor: CHART_COLORS.translucentOutsideTemp,
                     borderWidth: 2,
                     yAxisID: "yTemp",
                 },

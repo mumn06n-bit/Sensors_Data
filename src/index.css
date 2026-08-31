@@ -45,11 +45,26 @@ td {
     text-align: center;
 }
 
-.chart-scroll-area {
-    width: 100%;
-    overflow-x: auto;
+.chart-main {
+    display: flex;
 }
 
-.chart-inner {
-    min-width: 1200px;
+.chart-y-axis {
+    flex-shrink: 0;
+    width: 70px;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+}
+
+.chart-scroll-area {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.chart-wrapper {
+    width: max-content;
 }

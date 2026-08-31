@@ -384,11 +384,21 @@ function renderChart(
 
     if (sensorType === "salinity") {
         chartContainer.innerHTML =
-            `<div class="chart-scroll-area">
-            <div class="chart-inner">
-                <canvas id="salinity-chart"></canvas>
+            ` <div class="chart-legend">
+                <span>水温</span>
+                <span>外気温</span>
+                <span>塩分</span>
             </div>
-        </div>`;
+            <div class="chart-main">
+                <div class="chart-y-axis">
+                    <canvas id="salinity-y-axis"></canvas>
+                </div>
+                <div class="chart-scroll-area">
+                    <div class="chart-wrapper">
+                        <canvas id="salinity-chart"></canvas>
+                    </div>
+                </div>
+            </div>`;
 
         renderSalinityChart(data);
     }
@@ -540,7 +550,7 @@ function renderSalinityChart(data: string) {
     );
     canvas.width = chartWidth;
     canvas.height = 400;
-    
+
     // すでにグラフが存在していたら削除
     if (salinityChart) {
         salinityChart.destroy();
@@ -572,6 +582,11 @@ function renderSalinityChart(data: string) {
         },
         options: {
             responsive: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
         },
     });
 }
@@ -634,13 +649,13 @@ function renderDO1Chart(data: string) {
 
             datasets: [
                 {
-                    label: "外気温",
-                    data: outsideTemps,
+                    label: "水温",
+                    data: waterTemps,
                     borderWidth: 2,
                 },
                 {
-                    label: "水温",
-                    data: waterTemps,
+                    label: "外気温",
+                    data: outsideTemps,
                     borderWidth: 2,
                 },
                 {
@@ -719,13 +734,13 @@ function renderDO3Chart(data: string) {
 
             datasets: [
                 {
-                    label: "外気温",
-                    data: outsideTemps,
+                    label: "水温",
+                    data: waterTemps,
                     borderWidth: 2,
                 },
                 {
-                    label: "水温",
-                    data: waterTemps,
+                    label: "外気温",
+                    data: outsideTemps,
                     borderWidth: 2,
                 },
                 {

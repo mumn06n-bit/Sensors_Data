@@ -63,11 +63,6 @@ td {
     width: 100%;
 }
 
-.chart-y-axis {
-    flex-shrink: 0;
-    width: 60px;
-}
-
 .chart-legend {
     display: flex;
     padding: 10px;

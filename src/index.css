@@ -1,11 +1,14 @@
 #app {
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
 }
 
 #tab-container {
     display: flex;
     width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
     box-sizing: border-box;
     border-bottom: 2px solid #3D76A4;
     margin-bottom: 0;
@@ -24,6 +27,10 @@
 
 .tab:not(:last-child) {
     border-right: none;
+}
+
+#table-container table {
+    width: max-content;
 }
 
 .tab:hover {
@@ -70,7 +77,8 @@ td {
 
 .chart-legend {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+
     padding: 10px;
     width: 100%;
     box-sizing: border-box;

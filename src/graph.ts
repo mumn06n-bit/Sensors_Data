@@ -465,7 +465,7 @@ function renderDO1Chart(data: string) {
                         text: "%",
                     },
 
-                    min: 70,
+                    min: 59,
                     max: 100,
                 },
 
@@ -478,7 +478,7 @@ function renderDO1Chart(data: string) {
                         display: true,
                         text: "mg/L",
                     },
-                    min:3,
+                    min:3.5,
                     max:8,
                 },
             },
@@ -600,7 +600,7 @@ function renderDO3Chart(data: string) {
                         text: "%",
                     },
 
-                    min: 70,
+                    min: 59,
                     max: 100,
                 },
 
@@ -613,7 +613,7 @@ function renderDO3Chart(data: string) {
                         display: true,
                         text: "mg/L",
                     },
-                    min:3,
+                    min:3.5,
                     max:8,
                 },
             },

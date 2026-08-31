@@ -215,7 +215,7 @@ function renderWaterChart(data: string) {
                     borderColor: CHART_COLORS.outsideTemp,
                     backgroundColor: CHART_COLORS.outsideTemp,
                     borderWidth: 2,
-                    yAxisID: "yTempRight"
+                    yAxisID: "yTempLeft"
                 },
             ],
         },
@@ -263,6 +263,8 @@ let salinityChart: Chart | null = null;
 
 function renderSalinityChart(data: string) {
     const rows = parseData(data);
+
+    console.log("塩分のデータ件数:", rows.length);
 
     // 横軸：日時
     const labels = rows.map((row: any) => {
@@ -407,6 +409,8 @@ let do1Chart: Chart | null = null;
 
 function renderDO1Chart(data: string) {
     const rows = parseData(data);
+
+    console.log("DO1のデータ件数:", rows.length);
 
     // const maxPoints = 750;
     // const step = Math.ceil(rows.length / maxPoints);
@@ -563,6 +567,8 @@ let do3Chart: Chart | null = null;
 
 function renderDO3Chart(data: string) {
     const rows = parseData(data);
+
+    console.log("DO3のデータ件数:", rows.length);
 
     const labels = rows.map((row: any) => {
         const date = new Date(row[1]);

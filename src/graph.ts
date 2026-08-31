@@ -228,6 +228,14 @@ function renderWaterChart(data: string) {
                     display: false,
                 },
             },
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: "℃",
+                    },
+                },
+            },
         },
     });
 }
@@ -292,6 +300,7 @@ function renderSalinityChart(data: string) {
                     borderColor: CHART_COLORS.waterTemp,
                     backgroundColor: CHART_COLORS.waterTemp,
                     borderWidth: 2,
+                    yAxisID: "yTemp",
                 },
                 {
                     label: "外気温",
@@ -299,6 +308,7 @@ function renderSalinityChart(data: string) {
                     borderColor: CHART_COLORS.outsideTemp,
                     backgroundColor: CHART_COLORS.outsideTemp,
                     borderWidth: 2,
+                    yAxisID: "yTemp",
                 },
                 {
                     label: "塩分",
@@ -306,6 +316,7 @@ function renderSalinityChart(data: string) {
                     borderColor: CHART_COLORS.salinity,
                     backgroundColor: CHART_COLORS.salinity,
                     borderWidth: 2,
+                    yAxisID: "ySalinity",
                 },
             ],
         },
@@ -314,6 +325,27 @@ function renderSalinityChart(data: string) {
             plugins: {
                 legend: {
                     display: false,
+                },
+            },
+            scales: {
+                // 温度用の軸
+                yTemp: {
+                    display: false,
+                    position: "right",
+                },
+
+                // 塩分用の軸
+                ySalinity: {
+                    display: true,
+                    position: "left",
+
+                    title: {
+                        display: true,
+                        text: "psu",
+                    },
+
+                    // min: 29,
+                    // max: 35,
                 },
             },
         },
@@ -383,6 +415,7 @@ function renderDO1Chart(data: string) {
                     borderColor: CHART_COLORS.waterTemp,
                     backgroundColor: CHART_COLORS.waterTemp,
                     borderWidth: 2,
+                    yAxisID: "yTemp",
                 },
                 {
                     label: "外気温",
@@ -390,6 +423,7 @@ function renderDO1Chart(data: string) {
                     borderColor: CHART_COLORS.outsideTemp,
                     backgroundColor: CHART_COLORS.outsideTemp,
                     borderWidth: 2,
+                    yAxisID: "yTemp",
                 },
                 {
                     label: "DO(%)",
@@ -397,6 +431,7 @@ function renderDO1Chart(data: string) {
                     borderColor: CHART_COLORS.doPercent,
                     backgroundColor: CHART_COLORS.doPercent,
                     borderWidth: 2,
+                    yAxisID: "yDO",
                 },
                 {
                     label: "DO(mg/L)",
@@ -404,6 +439,7 @@ function renderDO1Chart(data: string) {
                     borderColor: CHART_COLORS.doMgL,
                     backgroundColor: CHART_COLORS.doMgL,
                     borderWidth: 2,
+                    yAxisID: "yDOMgL",
                 },
             ],
         },
@@ -412,6 +448,35 @@ function renderDO1Chart(data: string) {
             plugins: {
                 legend: {
                     display: false,
+                },
+            },
+            scales: {
+                // 温度用
+                yTemp: {
+                    display: false,
+                },
+
+                // DO(%)用
+                yDO: {
+                    display: true,
+
+                    title: {
+                        display: true,
+                        text: "%",
+                    },
+
+                    // min: 65,
+                    // max: 100,
+                },
+
+                // DO(mg/L)用
+                yDOMgL: {
+                    display: true,
+
+                    title: {
+                        display: true,
+                        text: "mg/L",
+                    },
                 },
             },
         },
@@ -481,6 +546,7 @@ function renderDO3Chart(data: string) {
                     borderColor: CHART_COLORS.waterTemp,
                     backgroundColor: CHART_COLORS.waterTemp,
                     borderWidth: 2,
+                    yAxisID: "yTemp",
                 },
                 {
                     label: "外気温",
@@ -488,6 +554,7 @@ function renderDO3Chart(data: string) {
                     borderColor: CHART_COLORS.outsideTemp,
                     backgroundColor: CHART_COLORS.outsideTemp,
                     borderWidth: 2,
+                    yAxisID: "yTemp",
                 },
                 {
                     label: "DO(%)",
@@ -495,6 +562,7 @@ function renderDO3Chart(data: string) {
                     borderColor: CHART_COLORS.doPercent,
                     backgroundColor: CHART_COLORS.doPercent,
                     borderWidth: 2,
+                    yAxisID: "yDO",
                 },
                 {
                     label: "DO(mg/L)",
@@ -502,6 +570,7 @@ function renderDO3Chart(data: string) {
                     borderColor: CHART_COLORS.doMgL,
                     backgroundColor: CHART_COLORS.doMgL,
                     borderWidth: 2,
+                    yAxisID: "yDOMgL",
                 },
             ],
         },
@@ -510,6 +579,35 @@ function renderDO3Chart(data: string) {
             plugins: {
                 legend: {
                     display: false,
+                },
+            },
+            scales: {
+                // 温度用
+                yTemp: {
+                    display: false,
+                },
+
+                // DO(%)用
+                yDO: {
+                    display: true,
+
+                    title: {
+                        display: true,
+                        text: "%",
+                    },
+
+                    // min: 65,
+                    // max: 100,
+                },
+
+                // DO(mg/L)用
+                yDOMgL: {
+                    display: true,
+
+                    title: {
+                        display: true,
+                        text: "mg/L",
+                    },
                 },
             },
         },

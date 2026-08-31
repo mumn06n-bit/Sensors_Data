@@ -341,9 +341,9 @@ chartToggleButton?.addEventListener("click", () => {
 
         chartToggleButton.textContent = "グラフを非表示";
         loadChart(
-        API_URLS[currentSensorType as keyof typeof API_URLS],
-        currentSensorType
-    );
+            API_URLS[currentSensorType as keyof typeof API_URLS],
+            currentSensorType
+        );
 
         // グラフを描画
     } else {
@@ -428,7 +428,7 @@ async function loadTable(apiUrl: string, sensorType: string) {
 
     if (data !== null) {
         container.innerHTML = renderTable(data, sensorType);
-        
+
     } else {
         container.textContent = "データの取得に失敗しました。";
     }
@@ -533,19 +533,24 @@ function renderSalinityChart(data: string) {
         "salinity-chart"
     ) as HTMLCanvasElement;
 
+    // 縦横幅
     const chartWidth = Math.max(
         rows.length * 20,
         800
     );
-
     canvas.width = chartWidth;
+    canvas.height = 400;
+
+    const chartWrapper = document.querySelector(".chart-wrapper") as HTMLElement;
+    chartWrapper.style.width = `${chartWidth}px`;
+    chartWrapper.style.height = "400px";
 
     // すでにグラフが存在していたら削除
     if (salinityChart) {
         salinityChart.destroy();
     }
 
-    salinityChart= new Chart(canvas, {
+    salinityChart = new Chart(canvas, {
         type: "line",
 
         data: {
@@ -705,7 +710,7 @@ function renderDO3Chart(data: string) {
 
     canvas.width = chartWidth;
 
-     // すでにグラフが存在していたら削除
+    // すでにグラフが存在していたら削除
     if (do3Chart) {
         do3Chart.destroy();
     }

@@ -24,12 +24,12 @@ export function renderChart(
             `<div class="chart-legend">
                 <span class="legend-item">
                     <span class="legend-color water-temp"></span>
-                    êÖâ∑
+                    Ê∞¥Ê∏©
                 </span>
 
                 <span class="legend-item">
                     <span class="legend-color outside-temp"></span>
-                    äOãCâ∑
+                    Â§ñÊ∞óÊ∏©
                 </span>
             </div>
             <div class="chart-main">
@@ -51,17 +51,17 @@ export function renderChart(
             ` <div class="chart-legend">
                 <span class="legend-item">
                     <span class="legend-color water-temp"></span>
-                    êÖâ∑
+                    Ê∞¥Ê∏©
                 </span>
 
                 <span class="legend-item">
                     <span class="legend-color outside-temp"></span>
-                    äOãCâ∑
+                    Â§ñÊ∞óÊ∏©
                 </span>
     
                 <span class="legend-item">
                     <span class="legend-color salinity"></span>
-                    âñï™
+                    Â°©ÂàÜ
                 </span>
             </div>
             <div class="chart-main">
@@ -83,22 +83,22 @@ export function renderChart(
             `<div class="chart-legend">
                 <span class="legend-item">
                     <span class="legend-color water-temp"></span>
-                    êÖâ∑
+                    Ê∞¥Ê∏©
                 </span>
 
                 <span class="legend-item">
                     <span class="legend-color outside-temp"></span>
-                    äOãCâ∑
+                    Â§ñÊ∞óÊ∏©
                 </span>
     
                 <span class="legend-item">
                     <span class="legend-color do-percent"></span>
-                    DOÅi%Åj
+                    DOÔºà%Ôºâ
                 </span>
 
                 <span class="legend-item">
                     <span class="legend-color do-MgL"></span>
-                    DOÅimg/LÅj
+                    DOÔºàmg/LÔºâ
                 </span>
             </div>
             <div class="chart-main">
@@ -120,22 +120,22 @@ export function renderChart(
             `<div class="chart-legend">
                 <span class="legend-item">
                     <span class="legend-color water-temp"></span>
-                    êÖâ∑
+                    Ê∞¥Ê∏©
                 </span>
 
                 <span class="legend-item">
                     <span class="legend-color outside-temp"></span>
-                    äOãCâ∑
+                    Â§ñÊ∞óÊ∏©
                 </span>
     
                 <span class="legend-item">
                     <span class="legend-color do-percent"></span>
-                    DOÅi%Åj
+                    DOÔºà%Ôºâ
                 </span>
 
                 <span class="legend-item">
                     <span class="legend-color do-MgL"></span>
-                    DOÅimg/LÅj
+                    DOÔºàmg/LÔºâ
                 </span>
             </div>
             <div class="chart-main">
@@ -160,7 +160,7 @@ const CHART_COLORS = {
     doPercent: "#91ee96",
     doMgL: "#25852a",
 };
-// êÖâ∑ÉOÉâÉt
+// Ê∞¥Ê∏©„Ç∞„É©„Éï
 let waterChart: Chart | null = null;
 
 function renderWaterChart(data: string) {
@@ -205,14 +205,14 @@ function renderWaterChart(data: string) {
 
             datasets: [
                 {
-                    label: "êÖâ∑",
+                    label: "Ê∞¥Ê∏©",
                     data: waterTemps,
                     borderColor: CHART_COLORS.waterTemp,
                     backgroundColor: CHART_COLORS.waterTemp,
                     borderWidth: 2,
                 },
                 {
-                    label: "äOãCâ∑",
+                    label: "Â§ñÊ∞óÊ∏©",
                     data: outsideTemps,
                     borderColor: CHART_COLORS.outsideTemp,
                     backgroundColor: CHART_COLORS.outsideTemp,
@@ -227,13 +227,13 @@ function renderWaterChart(data: string) {
     });
 }
 
-// âñï™ÉOÉâÉt
+// Â°©ÂàÜ„Ç∞„É©„Éï
 let salinityChart: Chart | null = null;
 
 function renderSalinityChart(data: string) {
     const rows = parseData(data);
 
-    // â°é≤ÅFì˙éû
+    // Ê®™Ëª∏ÔºöÊó•ÊôÇ
     const labels = rows.map((row: any) => {
         const date = new Date(row[1]);
 
@@ -242,17 +242,17 @@ function renderSalinityChart(data: string) {
         });
     });
 
-    // êÖâ∑
+    // Ê∞¥Ê∏©
     const waterTemps = rows.map((row: any) => {
         return Number(row[4]);
     });
 
-    // äOãCâ∑
+    // Â§ñÊ∞óÊ∏©
     const outsideTemps = rows.map((row: any) => {
         return Number(row[3]);
     });
 
-    // âñï™
+    // Â°©ÂàÜ
     const salinityValues = rows.map((row: any) => {
         return Number(row[6]);
     });
@@ -261,7 +261,7 @@ function renderSalinityChart(data: string) {
         "salinity-chart"
     ) as HTMLCanvasElement;
 
-    // ècâ°ïù
+    // Á∏¶Ê®™ÂπÖ
     const chartWidth = Math.max(
         rows.length * 20,
         800
@@ -269,7 +269,7 @@ function renderSalinityChart(data: string) {
     canvas.width = chartWidth;
     canvas.height = 400;
 
-    // Ç∑Ç≈Ç…ÉOÉâÉtÇ™ë∂ç›ÇµÇƒÇ¢ÇΩÇÁçÌèú
+    // „Åô„Åß„Å´„Ç∞„É©„Éï„ÅåÂ≠òÂú®„Åó„Å¶„ÅÑ„Åü„ÇâÂâäÈô§
     if (salinityChart) {
         salinityChart.destroy();
     }
@@ -282,21 +282,21 @@ function renderSalinityChart(data: string) {
 
             datasets: [
                 {
-                    label: "êÖâ∑",
+                    label: "Ê∞¥Ê∏©",
                     data: waterTemps,
                     borderColor: CHART_COLORS.waterTemp,
                     backgroundColor: CHART_COLORS.waterTemp,
                     borderWidth: 2,
                 },
                 {
-                    label: "äOãCâ∑",
+                    label: "Â§ñÊ∞óÊ∏©",
                     data: outsideTemps,
                     borderColor: CHART_COLORS.outsideTemp,
                     backgroundColor: CHART_COLORS.outsideTemp,
                     borderWidth: 2,
                 },
                 {
-                    label: "âñï™",
+                    label: "Â°©ÂàÜ",
                     data: salinityValues,
                     borderColor: CHART_COLORS.salinity,
                     backgroundColor: CHART_COLORS.salinity,
@@ -315,7 +315,7 @@ function renderSalinityChart(data: string) {
     });
 }
 
-// DO1çÜÉOÉâÉt
+// DO1Âè∑„Ç∞„É©„Éï
 let do1Chart: Chart | null = null;
 
 function renderDO1Chart(data: string) {
@@ -329,12 +329,12 @@ function renderDO1Chart(data: string) {
         });
     });
 
-    // äOãCâ∑
+    // Â§ñÊ∞óÊ∏©
     const outsideTemps = rows.map((row: any) => {
         return Number(row[3]);
     });
 
-    // êÖâ∑
+    // Ê∞¥Ê∏©
     const waterTemps = rows.map((row: any) => {
         return Number(row[4]);
     });
@@ -360,7 +360,7 @@ function renderDO1Chart(data: string) {
     canvas.width = chartWidth;
     canvas.height = 400;
 
-    // Ç∑Ç≈Ç…ÉOÉâÉtÇ™ë∂ç›ÇµÇƒÇ¢ÇΩÇÁçÌèú
+    // „Åô„Åß„Å´„Ç∞„É©„Éï„ÅåÂ≠òÂú®„Åó„Å¶„ÅÑ„Åü„ÇâÂâäÈô§
     if (do1Chart) {
         do1Chart.destroy();
     }
@@ -373,14 +373,14 @@ function renderDO1Chart(data: string) {
 
             datasets: [
                 {
-                    label: "êÖâ∑",
+                    label: "Ê∞¥Ê∏©",
                     data: waterTemps,
                     borderColor: CHART_COLORS.waterTemp,
                     backgroundColor: CHART_COLORS.waterTemp,
                     borderWidth: 2,
                 },
                 {
-                    label: "äOãCâ∑",
+                    label: "Â§ñÊ∞óÊ∏©",
                     data: outsideTemps,
                     borderColor: CHART_COLORS.outsideTemp,
                     backgroundColor: CHART_COLORS.outsideTemp,
@@ -408,7 +408,7 @@ function renderDO1Chart(data: string) {
     });
 }
 
-// DO3çÜÉOÉâÉt
+// DO3Âè∑„Ç∞„É©„Éï
 let do3Chart: Chart | null = null;
 
 function renderDO3Chart(data: string) {
@@ -422,12 +422,12 @@ function renderDO3Chart(data: string) {
         });
     });
 
-    // äOãCâ∑
+    // Â§ñÊ∞óÊ∏©
     const outsideTemps = rows.map((row: any) => {
         return Number(row[3]);
     });
 
-    // êÖâ∑
+    // Ê∞¥Ê∏©
     const waterTemps = rows.map((row: any) => {
         return Number(row[4]);
     });
@@ -453,7 +453,7 @@ function renderDO3Chart(data: string) {
     canvas.width = chartWidth;
     canvas.height = 400;
 
-    // Ç∑Ç≈Ç…ÉOÉâÉtÇ™ë∂ç›ÇµÇƒÇ¢ÇΩÇÁçÌèú
+    // „Åô„Åß„Å´„Ç∞„É©„Éï„ÅåÂ≠òÂú®„Åó„Å¶„ÅÑ„Åü„ÇâÂâäÈô§
     if (do3Chart) {
         do3Chart.destroy();
     }
@@ -466,14 +466,14 @@ function renderDO3Chart(data: string) {
 
             datasets: [
                 {
-                    label: "êÖâ∑",
+                    label: "Ê∞¥Ê∏©",
                     data: waterTemps,
                     borderColor: CHART_COLORS.waterTemp,
                     backgroundColor: CHART_COLORS.waterTemp,
                     borderWidth: 2,
                 },
                 {
-                    label: "äOãCâ∑",
+                    label: "Â§ñÊ∞óÊ∏©",
                     data: outsideTemps,
                     borderColor: CHART_COLORS.outsideTemp,
                     backgroundColor: CHART_COLORS.outsideTemp,

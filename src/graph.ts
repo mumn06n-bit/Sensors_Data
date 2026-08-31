@@ -235,8 +235,8 @@ function renderWaterChart(data: string) {
                         display: true,
                         text: "℃",
                     },
-                    min: 15,
-                    max: 40,
+                    min:15,
+                    max:40,
                 },
                 yTempRight: {
                     display: true,
@@ -245,8 +245,8 @@ function renderWaterChart(data: string) {
                         display: true,
                         text: "℃",
                     },
-                    min: 15,
-                    max: 40,
+                    min:15,
+                    max:40,
                 },
             },
         },
@@ -270,14 +270,8 @@ function renderSalinityChart(data: string) {
 
     console.log("塩分のデータ件数:", rows.length);
 
-    const maxPoints = 500;
-    const step = Math.ceil(rows.length / maxPoints);
-    const displayRows = rows.filter(
-        (_, index) => index % step === 0
-    );
-
     // 横軸：日時
-    const labels = displayRows.map((row: any) => {
+    const labels = rows.map((row: any) => {
         const date = new Date(row[1]);
 
         return date.toLocaleString("ja-JP", {
@@ -292,17 +286,17 @@ function renderSalinityChart(data: string) {
     });
 
     // 水温
-    const waterTemps = displayRows.map((row: any) => {
+    const waterTemps = rows.map((row: any) => {
         return Number(row[4]);
     });
 
     // 外気温
-    const outsideTemps = displayRows.map((row: any) => {
+    const outsideTemps = rows.map((row: any) => {
         return Number(row[3]);
     });
 
     // 塩分
-    const salinityValues = displayRows.map((row: any) => {
+    const salinityValues = rows.map((row: any) => {
         return Number(row[6]);
     });
 
@@ -317,14 +311,6 @@ function renderSalinityChart(data: string) {
     );
     canvas.width = chartWidth;
     canvas.height = 400;
-
-    const chartWrapper = document.querySelector(
-        ".chart-wrapper"
-    ) as HTMLElement;
-
-    if (chartWrapper) {
-        chartWrapper.style.width = `${chartWidth}px`;
-    }
 
     // すでにグラフが存在していたら削除
     if (salinityChart) {
@@ -588,13 +574,7 @@ function renderDO3Chart(data: string) {
 
     console.log("DO3のデータ件数:", rows.length);
 
-    const maxPoints = 500;
-    const step = Math.ceil(rows.length / maxPoints);
-    const displayRows = rows.filter(
-        (_, index) => index % step === 0
-    );
-
-    const labels = displayRows.map((row: any) => {
+    const labels = rows.map((row: any) => {
         const date = new Date(row[1]);
 
         return date.toLocaleString("ja-JP", {
@@ -609,22 +589,22 @@ function renderDO3Chart(data: string) {
     });
 
     // 外気温
-    const outsideTemps = displayRows.map((row: any) => {
+    const outsideTemps = rows.map((row: any) => {
         return Number(row[3]);
     });
 
     // 水温
-    const waterTemps = displayRows.map((row: any) => {
+    const waterTemps = rows.map((row: any) => {
         return Number(row[4]);
     });
 
     // DO(%)
-    const doPercent = displayRows.map((row: any) => {
+    const doPercent = rows.map((row: any) => {
         return Number(row[5]);
     });
 
     // DO(mg/L)
-    const doMgL = displayRows.map((row: any) => {
+    const doMgL = rows.map((row: any) => {
         return Number(row[6]);
     });
 
@@ -633,7 +613,7 @@ function renderDO3Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        displayRows.length * 20,
+        rows.length * 20,
         800
     );
     canvas.width = chartWidth;

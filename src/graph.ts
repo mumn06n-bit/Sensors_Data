@@ -484,7 +484,7 @@ function renderDO1Chart(data: string) {
                     },
 
                     min: 50,
-                    max: 105,
+                    max: 115,
                 },
 
                 // DO(mg/L)用
@@ -619,7 +619,7 @@ function renderDO3Chart(data: string) {
                     },
 
                     min: 50,
-                    max: 105,
+                    max: 115,
                 },
 
                 // DO(mg/L)用

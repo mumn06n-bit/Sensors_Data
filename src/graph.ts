@@ -366,7 +366,7 @@ let do1Chart: Chart | null = null;
 function renderDO1Chart(data: string) {
     const rows = parseData(data);
 
-    const maxPoints = 500;
+    const maxPoints = 600;
     const step = Math.ceil(rows.length / maxPoints);
     const displayRows = rows.filter(
         (_, index) => index % step === 0

@@ -3,14 +3,29 @@
     box-sizing: border-box;
 }
 
+#table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+#table-container table {
+    width: 100%;
+    min-width: max-content;
+}
+
 #tab-container {
     display: flex;
     width: 100%;
     border-bottom: 2px solid #3D76A4;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .tab {
-    flex: 1;
+    flex: 1 1 0;
     min-width: 0;
     box-sizing: border-box;
     padding: 12px;
@@ -56,11 +71,15 @@ td {
     width: 100%;
     box-sizing: border-box;
     overflow-x: auto;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-x: auto;
 }
 
 .chart-main {
     display: flex;
     width: 100%;
+    min-width: 0;
 }
 
 .chart-legend {
@@ -73,7 +92,7 @@ td {
 
 .chart-scroll-area {
     overflow-x: auto;
-    flex: 1;
+    flex: 1 1 auto;
     min-width: 0;
 }
 

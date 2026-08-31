@@ -416,7 +416,7 @@ function renderDO1Chart(data: string) {
 
     console.log("DO1のデータ件数:", rows.length);
 
-    const maxPoints = 600;
+    const maxPoints = 500;
     const step = Math.ceil(rows.length / maxPoints);
     const displayRows = rows.filter(
         (_, index) => index % step === 0
@@ -461,7 +461,7 @@ function renderDO1Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        rows.length * 20,
+        displayRows.length * 20,
         800
     );
     canvas.width = chartWidth;
@@ -619,7 +619,7 @@ function renderDO3Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        rows.length * 20,
+        displayRows.length * 20,
         800
     );
     canvas.width = chartWidth;

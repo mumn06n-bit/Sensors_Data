@@ -466,8 +466,8 @@ function renderWaterChart(data: string) {
         rows.length * 20,
         800
     );
-
     canvas.width = chartWidth;
+    canvas.height = 400;
 
     if (waterChart) {
         waterChart.destroy();
@@ -539,9 +539,7 @@ function renderSalinityChart(data: string) {
         800
     );
     canvas.width = chartWidth;
-
-    const chartWrapper = document.querySelector(".chart-wrapper") as HTMLElement;
-    chartWrapper.style.width = `${chartWidth}px`;
+    canvas.height = 400;
     
     // すでにグラフが存在していたら削除
     if (salinityChart) {
@@ -620,8 +618,8 @@ function renderDO1Chart(data: string) {
         rows.length * 20,
         800
     );
-
     canvas.width = chartWidth;
+    canvas.height = 400;
 
     // すでにグラフが存在していたら削除
     if (do1Chart) {
@@ -705,8 +703,8 @@ function renderDO3Chart(data: string) {
         rows.length * 20,
         800
     );
-
     canvas.width = chartWidth;
+    canvas.height = 400;
 
     // すでにグラフが存在していたら削除
     if (do3Chart) {

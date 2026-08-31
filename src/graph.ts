@@ -223,6 +223,11 @@ function renderWaterChart(data: string) {
 
         options: {
             responsive: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
         },
     });
 }
@@ -404,6 +409,11 @@ function renderDO1Chart(data: string) {
         },
         options: {
             responsive: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
         },
     });
 }
@@ -497,6 +507,11 @@ function renderDO3Chart(data: string) {
         },
         options: {
             responsive: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
         },
     });
 }

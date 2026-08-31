@@ -366,7 +366,13 @@ let do1Chart: Chart | null = null;
 function renderDO1Chart(data: string) {
     const rows = parseData(data);
 
-    const labels = rows.map((row: any) => {
+    const maxPoints = 500;
+    const step = Math.ceil(rows.length / maxPoints);
+    const displayRows = rows.filter(
+        (_, index) => index % step === 0
+    );
+
+    const labels = displayRows.map((row: any) => {
         const date = new Date(row[1]);
 
         return date.toLocaleString("ja-JP", {
@@ -375,22 +381,22 @@ function renderDO1Chart(data: string) {
     });
 
     // 外気温
-    const outsideTemps = rows.map((row: any) => {
+    const outsideTemps = displayRows.map((row: any) => {
         return Number(row[3]);
     });
 
     // 水温
-    const waterTemps = rows.map((row: any) => {
+    const waterTemps = displayRows.map((row: any) => {
         return Number(row[4]);
     });
 
     // DO(%)
-    const doPercent = rows.map((row: any) => {
+    const doPercent = displayRows.map((row: any) => {
         return Number(row[5]);
     });
 
     // DO(mg/L)
-    const doMgL = rows.map((row: any) => {
+    const doMgL = displayRows.map((row: any) => {
         return Number(row[6]);
     });
 
@@ -399,7 +405,7 @@ function renderDO1Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        rows.length * 20,
+        displayRows.length * 20,
         800
     );
     canvas.width = chartWidth;

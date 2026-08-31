@@ -207,6 +207,7 @@ function renderWaterChart(data: string) {
                     borderColor: CHART_COLORS.waterTemp,
                     backgroundColor: CHART_COLORS.waterTemp,
                     borderWidth: 2,
+                    yAxisID: "yTempLeft"
                 },
                 {
                     label: "外気温",
@@ -214,6 +215,7 @@ function renderWaterChart(data: string) {
                     borderColor: CHART_COLORS.outsideTemp,
                     backgroundColor: CHART_COLORS.outsideTemp,
                     borderWidth: 2,
+                    yAxisID: "yTempRight"
                 },
             ],
         },
@@ -226,7 +228,17 @@ function renderWaterChart(data: string) {
                 },
             },
             scales: {
-                y: {
+                yTempLeft: {
+                    display: true,
+                    position: "left",
+                    title: {
+                        display: true,
+                        text: "℃",
+                    },
+                },
+                yTempRight: {
+                    display: true,
+                    position: "right",
                     title: {
                         display: true,
                         text: "℃",
@@ -396,13 +408,13 @@ let do1Chart: Chart | null = null;
 function renderDO1Chart(data: string) {
     const rows = parseData(data);
 
-    const maxPoints = 750;
-    const step = Math.ceil(rows.length / maxPoints);
-    const displayRows = rows.filter(
-        (_, index) => index % step === 0
-    );
+    // const maxPoints = 750;
+    // const step = Math.ceil(rows.length / maxPoints);
+    // const displayRows = rows.filter(
+    //     (_, index) => index % step === 0
+    // );
 
-    const labels = displayRows.map((row: any) => {
+    const labels = rows.map((row: any) => {
         const date = new Date(row[1]);
 
         return date.toLocaleString("ja-JP", {
@@ -417,22 +429,22 @@ function renderDO1Chart(data: string) {
     });
 
     // 外気温
-    const outsideTemps = displayRows.map((row: any) => {
+    const outsideTemps = rows.map((row: any) => {
         return Number(row[3]);
     });
 
     // 水温
-    const waterTemps = displayRows.map((row: any) => {
+    const waterTemps = rows.map((row: any) => {
         return Number(row[4]);
     });
 
     // DO(%)
-    const doPercent = displayRows.map((row: any) => {
+    const doPercent = rows.map((row: any) => {
         return Number(row[5]);
     });
 
     // DO(mg/L)
-    const doMgL = displayRows.map((row: any) => {
+    const doMgL = rows.map((row: any) => {
         return Number(row[6]);
     });
 
@@ -441,7 +453,7 @@ function renderDO1Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        displayRows.length * 20,
+        rows.length * 20,
         800
     );
     canvas.width = chartWidth;

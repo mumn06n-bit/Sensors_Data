@@ -50,6 +50,10 @@ td {
     overflow-x: auto;
 }
 
+.chart-wrapper {
+    height: 400px;
+}
+
 .chart-inner {
     min-width: 1200px;
 }

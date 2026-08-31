@@ -73,6 +73,7 @@ function renderWaterTable(data: string): string {
     const rows = parseData(data);
 
     let tableHtml = `
+     <div class="table-scroll-area">
         <table border="1">
             <thead>
                 <tr>
@@ -107,6 +108,7 @@ function renderWaterTable(data: string): string {
     tableHtml += `
             </tbody>
         </table>
+        </div>
     `;
 
     return tableHtml;
@@ -116,6 +118,7 @@ function renderSalinityTable(data: string): string {
     const rows = parseData(data);
 
     let tableHtml = `
+     <div class="table-scroll-area">
         <table border="1">
             <thead>
                 <tr>
@@ -154,6 +157,7 @@ function renderSalinityTable(data: string): string {
     tableHtml += `
             </tbody>
         </table>
+        </div>
     `;
 
     return tableHtml;
@@ -163,6 +167,7 @@ function renderDO1Table(data: string): string {
     const rows = parseData(data);
 
     let tableHtml = `
+     <div class="table-scroll-area">
         <table border="1">
             <thead>
                 <tr>
@@ -201,6 +206,7 @@ function renderDO1Table(data: string): string {
     tableHtml += `
             </tbody>
         </table>
+        </div>
     `;
 
     return tableHtml;
@@ -210,6 +216,7 @@ function renderDO3Table(data: string): string {
     const rows = parseData(data);
 
     let tableHtml = `
+     <div class="table-scroll-area">
         <table border="1">
             <thead>
                 <tr>
@@ -248,6 +255,7 @@ function renderDO3Table(data: string): string {
     tableHtml += `
             </tbody>
         </table>
+        </div>
     `;
 
     return tableHtml;

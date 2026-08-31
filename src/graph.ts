@@ -412,13 +412,13 @@ function renderDO1Chart(data: string) {
 
     console.log("DO1のデータ件数:", rows.length);
 
-    // const maxPoints = 750;
-    // const step = Math.ceil(rows.length / maxPoints);
-    // const displayRows = rows.filter(
-    //     (_, index) => index % step === 0
-    // );
+    const maxPoints = 1000;
+    const step = Math.ceil(rows.length / maxPoints);
+    const displayRows = rows.filter(
+        (_, index) => index % step === 0
+    );
 
-    const labels = rows.map((row: any) => {
+    const labels = displayRows.map((row: any) => {
         const date = new Date(row[1]);
 
         return date.toLocaleString("ja-JP", {
@@ -433,22 +433,22 @@ function renderDO1Chart(data: string) {
     });
 
     // 外気温
-    const outsideTemps = rows.map((row: any) => {
+    const outsideTemps = displayRows.map((row: any) => {
         return Number(row[3]);
     });
 
     // 水温
-    const waterTemps = rows.map((row: any) => {
+    const waterTemps = displayRows.map((row: any) => {
         return Number(row[4]);
     });
 
     // DO(%)
-    const doPercent = rows.map((row: any) => {
+    const doPercent = displayRows.map((row: any) => {
         return Number(row[5]);
     });
 
     // DO(mg/L)
-    const doMgL = rows.map((row: any) => {
+    const doMgL = displayRows.map((row: any) => {
         return Number(row[6]);
     });
 

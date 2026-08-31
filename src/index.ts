@@ -539,12 +539,10 @@ function renderSalinityChart(data: string) {
         800
     );
     canvas.width = chartWidth;
-    canvas.height = 400;
 
     const chartWrapper = document.querySelector(".chart-wrapper") as HTMLElement;
     chartWrapper.style.width = `${chartWidth}px`;
-    chartWrapper.style.height = "400px";
-
+    
     // すでにグラフが存在していたら削除
     if (salinityChart) {
         salinityChart.destroy();

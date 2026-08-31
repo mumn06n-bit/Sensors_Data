@@ -331,7 +331,6 @@ function renderSalinityChart(data: string) {
                 // 温度用の軸
                 yTemp: {
                     display: false,
-                    position: "right",
                 },
 
                 // 塩分用の軸
@@ -344,8 +343,8 @@ function renderSalinityChart(data: string) {
                         text: "psu",
                     },
 
-                    // min: 29,
-                    // max: 35,
+                    min: 29.5,
+                    max: 34.5,
                 },
             },
         },
@@ -459,24 +458,28 @@ function renderDO1Chart(data: string) {
                 // DO(%)用
                 yDO: {
                     display: true,
+                    position: "left",
 
                     title: {
                         display: true,
                         text: "%",
                     },
 
-                    // min: 65,
-                    // max: 100,
+                    min: 70,
+                    max: 100,
                 },
 
                 // DO(mg/L)用
                 yDOMgL: {
                     display: true,
+                    position: "right",
 
                     title: {
                         display: true,
                         text: "mg/L",
                     },
+                    min:3,
+                    max:8,
                 },
             },
         },
@@ -590,24 +593,28 @@ function renderDO3Chart(data: string) {
                 // DO(%)用
                 yDO: {
                     display: true,
+                    position: "left",
 
                     title: {
                         display: true,
                         text: "%",
                     },
 
-                    // min: 65,
-                    // max: 100,
+                    min: 70,
+                    max: 100,
                 },
 
                 // DO(mg/L)用
                 yDOMgL: {
                     display: true,
+                    position: "right",
 
                     title: {
                         display: true,
                         text: "mg/L",
                     },
+                    min:3,
+                    max:8,
                 },
             },
         },

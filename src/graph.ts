@@ -316,11 +316,7 @@ function renderSalinityChart(data: string) {
     canvas.width = chartWidth;
     canvas.height = 400;
 
-    const chartWrapper = canvas.parentElement as HTMLElement;
-
-    if (chartWrapper) {
-        chartWrapper.style.width = `${chartWidth}px`;
-    }
+     
 
     // すでにグラフが存在していたら削除
     if (salinityChart) {
@@ -477,11 +473,7 @@ function renderDO1Chart(data: string) {
     canvas.width = chartWidth;
     canvas.height = 400;
     
-    const chartWrapper = canvas.parentElement as HTMLElement;
-
-    if (chartWrapper) {
-        chartWrapper.style.width = `${chartWidth}px`;
-    }
+     
 
     // すでにグラフが存在していたら削除
     if (do1Chart) {
@@ -641,11 +633,7 @@ function renderDO3Chart(data: string) {
     canvas.width = chartWidth;
     canvas.height = 400;
     
-    const chartWrapper = canvas.parentElement as HTMLElement;
-
-    if (chartWrapper) {
-        chartWrapper.style.width = `${chartWidth}px`;
-    }
+     
 
     // すでにグラフが存在していたら削除
     if (do3Chart) {

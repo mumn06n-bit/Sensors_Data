@@ -272,6 +272,7 @@ function renderSalinityChart(data: string) {
     if (salinityYAxisChart) {
         salinityYAxisChart.destroy();
     }
+    yAxisCanvas.height = chartHeight;
     salinityYAxisChart = new Chart(yAxisCanvas, {
         type: "line",
 
@@ -311,7 +312,15 @@ function renderSalinityChart(data: string) {
 
             scales: {
                 x: {
-                    display: false,
+                    ticks: {
+                        display: false,
+                    },
+                    grid: {
+                        display: false,
+                    },
+                    border: {
+                        display: false,
+                    },
                 },
 
                 y: {
@@ -320,7 +329,6 @@ function renderSalinityChart(data: string) {
             },
         },
     });
-    yAxisCanvas.height = chartHeight;
 
     const canvas = document.getElementById(
         "salinity-chart"
@@ -373,6 +381,11 @@ function renderSalinityChart(data: string) {
             responsive: false,
             plugins: {
                 legend: {
+                    display: false,
+                },
+            },
+            scales: {
+                y: {
                     display: false,
                 },
             },

@@ -142,7 +142,7 @@ export function renderChart(
 const CHART_COLORS = {
     waterTemp: "#4FC3F7",
     outsideTemp: "#EF5350",
-    salinity: "#faa423",
+    salinity: "#ffcd29",
     doPercent: "#1dd626",
     doMgL: "#0c7412",
 

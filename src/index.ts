@@ -256,10 +256,12 @@ function renderDO3Table(data: string): string {
 if (app) {
     //button追加
     app.innerHTML = `
-    <h2>センサデータ</h2>
-    <a href="https://kitsunezaki.vercel.app/data" target="_blank" rel="noopener noreferrer">
+    <div class="title-row">
+        <h2>センサデータ</h2>
+        <a href="https://kitsunezaki.vercel.app/data" target="_blank" rel="noopener noreferrer">
             狐崎みるはこちら
         </a>
+    </div>
 
     <div id="tab-container">
         <button id="water-tab" class="tab">水温</button>

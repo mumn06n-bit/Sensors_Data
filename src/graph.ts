@@ -29,7 +29,7 @@ export function renderChart(
     data: string,
     sensorType: string,
     chartContainer: HTMLElement,
-    interval: Interval = "3h",
+    interval: Interval = "3h",//3時間間隔
 ) {
     if (!chartContainer) return;
 

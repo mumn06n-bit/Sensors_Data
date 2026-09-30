@@ -400,4 +400,4 @@ async function loadTable(apiUrl: string, sensorType: string) {
     }
 }
 
-loadTable(API_URLS.water, "salinity");
+loadTable(API_URLS.salinity, "salinity");

@@ -259,7 +259,8 @@ if (app) {
     <h2>センサデータ</h2>
 
     <div id="tab-container">
-        <button id="salinity-tab" class="tab">塩分</button>
+        <button id="water-tab" class="tab">水温</button>
+        <button id="salinity-tab" class="tab active">塩分</button>
         <button id="do1-tab" class="tab">DO1号</button>
         <button id="do2-tab" class="tab">DO2号</button>
         <button id="do3-tab" class="tab">DO3号</button>
@@ -278,6 +279,7 @@ if (app) {
     </div>
 `;
 }
+const waterTab = document.getElementById("water-tab");
 const salinityTab = document.getElementById("salinity-tab");
 const do1Tab = document.getElementById("do1-tab");
 const do2Tab = document.getElementById("do2-tab");//追加
@@ -290,6 +292,12 @@ const chartContainer =
     document.getElementById("chart-container");
 
 let currentSensorType = "salinity";
+
+waterTab?.addEventListener("click", () => {
+    currentSensorType = "water";
+    setActiveTab(waterTab);
+    loadTable(API_URLS.water, "water");
+});
 
 salinityTab?.addEventListener("click", () => {
     currentSensorType = "salinity";
@@ -400,4 +408,4 @@ async function loadTable(apiUrl: string, sensorType: string) {
     }
 }
 
-loadTable(API_URLS.water, "salinity");
+loadTable(API_URLS.salinity, "salinity");

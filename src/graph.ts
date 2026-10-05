@@ -379,7 +379,7 @@ function renderSalinityChart(data: string) {
                         text: "psu",
                     },
 
-                    min: 26.0,//ここ書き換えたら下も書き換える
+                    min: 26.0,
                     max: 34.5,
                 },
 

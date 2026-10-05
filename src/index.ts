@@ -261,6 +261,10 @@ if (app) {
         <a href="https://kitsunezaki.vercel.app/data" target="_blank" rel="noopener noreferrer">
             狐崎みるはこちら
         </a>
+
+        <a href="https://sensors-data-private.vercel.app/" target="_blank" rel="noopener noreferrer">
+            分析用はこちら（宮城県水産高校のみなさまへ）
+        </a>
     </div>
 
     <div id="tab-container">

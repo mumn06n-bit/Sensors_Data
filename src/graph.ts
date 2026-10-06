@@ -1,5 +1,7 @@
 import Chart from "chart.js/auto";
 import Papa from "papaparse";
+import "./index.css";
+import { thinRows, getPxPerPoint, type Interval } from "./thinRows.js"; // 間引き処理
 
 function parseData(data: string) {
     const parsed = Papa.parse(data, {
@@ -10,10 +12,21 @@ function parseData(data: string) {
     return parsed.data;
 }
 
+// トグルボタンのHTML（ONのとき active）
+function intervalToggleButton(interval: Interval): string {
+    const isOn = interval === "3h";
+    return `
+        <div class="interval-buttons">
+            <button class="interval-btn ${isOn ? "active" : ""}"
+                    aria-pressed="${isOn}">3時間ごと</button>
+        </div>`;
+}
+
 export function renderChart(
     data: string,
     sensorType: string,
-    chartContainer: HTMLElement
+    chartContainer: HTMLElement,
+    interval: Interval = "all",
 ) {
     if (!chartContainer) return;
 
@@ -43,7 +56,8 @@ export function renderChart(
 
     if (sensorType === "salinity") {
         chartContainer.innerHTML =
-            ` <div class="chart-legend">
+            `${intervalToggleButton(interval)}
+             <div class="chart-legend">
                 <span class="legend-item">
                     <span class="legend-color translucent-water-temp"></span>
                     水温
@@ -67,12 +81,13 @@ export function renderChart(
                 </div>
             </div>`;
 
-        renderSalinityChart(data);
+        renderSalinityChart(data, interval);
     }
 
     if (sensorType === "do1") {
         chartContainer.innerHTML =
-            `<div class="chart-legend">
+            `${intervalToggleButton(interval)}
+             <div class="chart-legend">
                 <span class="legend-item">
                     <span class="legend-color translucent-water-temp"></span>
                     水温
@@ -101,12 +116,13 @@ export function renderChart(
                 </div>
             </div>`;
 
-        renderDO1Chart(data);
+        renderDO1Chart(data, interval);
     }
 
     if (sensorType === "do3") {
         chartContainer.innerHTML =
-            `<div class="chart-legend">
+            `${intervalToggleButton(interval)}
+             <div class="chart-legend">
                 <span class="legend-item">
                     <span class="legend-color translucent-water-temp"></span>
                     水温
@@ -135,8 +151,15 @@ export function renderChart(
                 </div>
             </div>`;
 
-        renderDO3Chart(data);
+        renderDO3Chart(data, interval);
     }
+
+    // トグルボタン: 押すたびに "all" ⇔ "3h" を切り替えて描画し直す
+    const button = chartContainer.querySelector<HTMLButtonElement>(".interval-btn");
+    button?.addEventListener("click", () => {
+        const next: Interval = interval === "3h" ? "all" : "3h";
+        renderChart(data, sensorType, chartContainer, next);
+    });
 }
 
 const CHART_COLORS = {
@@ -182,7 +205,7 @@ function renderWaterChart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        rows.length * 20,
+        rows.length * 40,
         800
     );
     canvas.width = chartWidth;
@@ -263,17 +286,15 @@ function renderWaterChart(data: string) {
 // 塩分グラフ
 let salinityChart: Chart | null = null;
 
-function renderSalinityChart(data: string) {
+function renderSalinityChart(data: string, interval: Interval) {
     const rows = parseData(data);
 
     console.log("塩分のデータ件数:", rows.length);
 
+    const displayRows = thinRows(rows, interval);
 
-    const maxPoints = 500;
-    const step = Math.ceil(rows.length / maxPoints);
-    const displayRows = rows.filter(
-        (_, index) => index % step === 0
-    );
+    // 間引き前の全データから縦軸の範囲を計算
+    const salinityRange = calcAxisRange(rows, 6, 0.5, 0.5, 1, 45);
 
     const labels = displayRows.map((row: any) => {
         const date = new Date(row[1]);
@@ -301,7 +322,8 @@ function renderSalinityChart(data: string) {
 
     // 塩分
     const salinityValues = displayRows.map((row: any) => {
-        return Number(row[6]);
+        const v = parseFloat(row[6]);
+        return v > 0 ? v : NaN; // 0以下の値は無効として NaN にする（線が途切れるように）
     });
 
     const canvas = document.getElementById(
@@ -310,13 +332,11 @@ function renderSalinityChart(data: string) {
 
     // 縦横幅
     const chartWidth = Math.max(
-        displayRows.length * 20,
+        displayRows.length * getPxPerPoint(interval),
         800
     );
     canvas.width = chartWidth;
     canvas.height = 400;
-
-
 
     // すでにグラフが存在していたら削除
     if (salinityChart) {
@@ -364,6 +384,25 @@ function renderSalinityChart(data: string) {
                 },
             },
             scales: {
+                // 横軸: 00:00 のときだけ日付も表示する
+                x: {
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0,
+                        callback: function (value, index) {
+                            const label = this.getLabelForValue(Number(value));
+                            const [date = "", time = ""] = label.split(" ");
+
+                            if (time === "00:00" || index === 0) {
+                                return [time, date];
+                            }
+
+                            return time;
+                        },
+                    },
+                },
+
                 // 温度用の軸
                 yTemp: {
                     display: false,
@@ -379,8 +418,8 @@ function renderSalinityChart(data: string) {
                         text: "psu",
                     },
 
-                    min: 26.0,
-                    max: 34.5,
+                    min: salinityRange.min,
+                    max: salinityRange.max,
                 },
 
                 // 右側の塩分用の軸
@@ -393,8 +432,8 @@ function renderSalinityChart(data: string) {
                         text: "psu",
                     },
 
-                    min: 26.0,
-                    max: 34.5,
+                    min: salinityRange.min,
+                    max: salinityRange.max,
 
                     grid: {
                         drawOnChartArea: false,
@@ -417,16 +456,15 @@ function renderSalinityChart(data: string) {
 // DO1号グラフ
 let do1Chart: Chart | null = null;
 
-function renderDO1Chart(data: string) {
+function renderDO1Chart(data: string, interval: Interval) {
     const rows = parseData(data);
 
     console.log("DO1のデータ件数:", rows.length);
 
-    const maxPoints = 500;
-    const step = Math.ceil(rows.length / maxPoints);
-    const displayRows = rows.filter(
-        (_, index) => index % step === 0
-    );
+    const displayRows = thinRows(rows, interval);
+
+    const doPercentRange = calcAxisRange(rows, 5, 2, 5, 1, 300);
+    const doMgLRange     = calcAxisRange(rows, 6, 0.5, 0.5, 0.1, 30);
 
     const labels = displayRows.map((row: any) => {
         const date = new Date(row[1]);
@@ -467,7 +505,7 @@ function renderDO1Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        displayRows.length * 20,
+        displayRows.length * getPxPerPoint(interval),
         800
     );
     canvas.width = chartWidth;
@@ -529,6 +567,27 @@ function renderDO1Chart(data: string) {
                 },
             },
             scales: {
+                // 横軸: 00:00 のときだけ日付も表示する
+                x: {
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0,
+                        callback: function (value, index) {
+                            const label = this.getLabelForValue(Number(value));
+                            const [date = "", time = ""] = label.split(" ");
+
+                            // 00:00 と、いちばん左のラベルは日付も出す(2行表示)
+                            if (time === "00:00" || index === 0) {
+                                return [time, date];
+                            }
+
+                            // それ以外は時刻だけ
+                            return time;
+                        },
+                    },
+                },
+
                 // 温度用
                 yTemp: {
                     display: false,
@@ -547,8 +606,8 @@ function renderDO1Chart(data: string) {
                         drawOnChartArea: false,
                     },
 
-                    min: 50,
-                    max: 115,
+                    min: doPercentRange.min,
+                    max: doPercentRange.max
                 },
 
                 // DO(mg/L)用
@@ -560,8 +619,8 @@ function renderDO1Chart(data: string) {
                         display: true,
                         text: "mg/L",
                     },
-                    min: 3.5,
-                    max: 8,
+                    min: doMgLRange.min,
+                    max: doMgLRange.max,
                 },
             },
         },
@@ -580,16 +639,15 @@ function renderDO1Chart(data: string) {
 // DO3号グラフ
 let do3Chart: Chart | null = null;
 
-function renderDO3Chart(data: string) {
+function renderDO3Chart(data: string, interval: Interval) {
     const rows = parseData(data);
 
     console.log("DO3のデータ件数:", rows.length);
 
-    const maxPoints = 500;
-    const step = Math.ceil(rows.length / maxPoints);
-    const displayRows = rows.filter(
-        (_, index) => index % step === 0
-    );
+    const displayRows = thinRows(rows, interval);
+
+    const doPercentRange = calcAxisRange(rows, 5, 5, 5, 1, 300);
+const doMgLRange     = calcAxisRange(rows, 6, 0.5, 0.5, 0.1, 30);
 
     const labels = displayRows.map((row: any) => {
         const date = new Date(row[1]);
@@ -630,7 +688,7 @@ function renderDO3Chart(data: string) {
     ) as HTMLCanvasElement;
 
     const chartWidth = Math.max(
-        displayRows.length * 20,
+        displayRows.length * getPxPerPoint(interval),
         800
     );
     canvas.width = chartWidth;
@@ -692,6 +750,25 @@ function renderDO3Chart(data: string) {
                 },
             },
             scales: {
+                // 横軸: 00:00 のときだけ日付も表示する
+                x: {
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0,
+                        callback: function (value, index) {
+                            const label = this.getLabelForValue(Number(value));
+                            const [date = "", time = ""] = label.split(" ");
+
+                            if (time === "00:00" || index === 0) {
+                                return [time, date];
+                            }
+
+                            return time;
+                        },
+                    },
+                },
+
                 // 温度用
                 yTemp: {
                     display: false,
@@ -710,8 +787,8 @@ function renderDO3Chart(data: string) {
                         drawOnChartArea: false,
                     },
 
-                    min: 50,
-                    max: 115,
+                    min: doPercentRange.min,
+                    max: doPercentRange.max,
                 },
 
                 // DO(mg/L)用
@@ -723,8 +800,8 @@ function renderDO3Chart(data: string) {
                         display: true,
                         text: "mg/L",
                     },
-                    min: 3.5,
-                    max: 8,
+                    min: doMgLRange.min,
+                    max: doMgLRange.max,
                 },
             },
         },
@@ -738,4 +815,31 @@ function renderDO3Chart(data: string) {
             scrollArea.scrollLeft = scrollArea.scrollWidth;
         }
     });
+}
+
+// 値の配列から、縦軸の min / max を計算する
+// margin: 余白、step: 目盛りが切りのいい数字になるよう丸める単位
+function calcAxisRange(
+    rows: any[],
+    columnIndex: number,
+    margin: number,
+    step: number,
+    validMin: number = -Infinity,
+    validMax: number = Infinity,
+): { min: number | undefined; max: number | undefined } {
+    const values = rows
+        .map((row: any) => parseFloat(row[columnIndex]))
+        .filter((v) => Number.isFinite(v) && v >= validMin && v <= validMax);
+
+    if (values.length === 0) {
+        return { min: undefined, max: undefined }; // 自動に任せる
+    }
+
+    const lo = values.reduce((a, b) => Math.min(a, b));
+    const hi = values.reduce((a, b) => Math.max(a, b));
+
+    return {
+        min: Math.floor((lo - margin) / step) * step,
+        max: Math.ceil((hi + margin) / step) * step,
+    };
 }

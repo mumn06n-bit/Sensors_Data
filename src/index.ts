@@ -6,7 +6,7 @@ const API_URLS = {
     water: "/api/water",
     salinity: "/api/salinity",
     do1: "/api/do1",
-    do3: "/api/do3", //追加
+    do3: "/api/do3", 
 };
 
 //グラフの表示/非表示
@@ -257,7 +257,7 @@ if (app) {
     //button追加
     app.innerHTML = `
     <div class="title-row">
-        <h2>センサデータ</h2>
+        <h2>センサデータ（分析用）</h2>
         <a href="https://kitsunezaki.vercel.app/data" target="_blank" rel="noopener noreferrer">
             狐崎みるはこちら
         </a>

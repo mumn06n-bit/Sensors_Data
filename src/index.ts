@@ -6,7 +6,7 @@ const API_URLS = {
     water: "/api/water",
     salinity: "/api/salinity",
     do1: "/api/do1",
-    do3: "/api/do3", //追加
+    do3: "/api/do3", 
 };
 
 //グラフの表示/非表示

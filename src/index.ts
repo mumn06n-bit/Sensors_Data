@@ -268,6 +268,7 @@ if (app) {
         <a href="https://kitsunezaki.vercel.app/data" target="_blank" rel="noopener noreferrer">
             狐崎みるはこちら
         </a>
+
     </div>
 
     <div id="tab-container">
@@ -279,7 +280,7 @@ if (app) {
     </div>
 
     <div class="chart-controls">
-        <button id="chart-toggle-button">グラフを表示</button>
+        <button id="chart-toggle-button" class="chart-toggle-btn">グラフを表示</button>
         <button id="chart-interval-button" class="interval-btn" aria-pressed="false" style="display: none;">
             3時間ごと
         </button>
@@ -492,7 +493,7 @@ async function loadTable(apiUrl: string, sensorType: string) {
         showTable();
     } else {
         tableData = null;
-        container.textContent = "データの取得に失敗しました。";
+        container.textContent = "データの取得に失敗しました。2~5分ほど待ってからもう一度お試しください。";
     }
 }
 

@@ -310,7 +310,12 @@ if (app) {
         <a href="https://kitsunezaki.vercel.app/data" target="_blank" rel="noopener noreferrer">
             狐崎みるはこちら
         </a>
+    </div>
 
+    <div class="notice">
+        <span class="notice-title">お知らせ</span>
+        現在、システムが停止しており、過去のデータを閲覧できなくなっております。
+        ご迷惑をおかけして申し訳ございません。
     </div>
 
     <div id="tab-container">

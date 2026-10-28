@@ -139,3 +139,10 @@ td {
 .translucent-outside-temp {
     background-color: #ef53507c;
 }
+
+.link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 25px;
+    margin-bottom: 8px;
+}

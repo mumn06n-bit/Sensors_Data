@@ -257,6 +257,14 @@ if (app) {
     //button追加
     app.innerHTML = `
     <h2>センサデータ</h2>
+    <div class="link-row">
+        <a href="https://kitsunezaki.vercel.app/data" target="_blank" rel="noopener noreferrer">
+            狐崎みるはこちら
+        </a>
+        <a href="https://sensors-data-stable.vercel.app/" target="_blank" rel="noopener noreferrer">
+            宮城県水産高校のみなさまへ
+        </a>
+    </div>
 
     <div id="tab-container">
         <button id="water-tab" class="tab active">水温</button>

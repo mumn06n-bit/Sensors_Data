@@ -216,44 +216,61 @@ function renderDO1Table(data: string, interval: Interval): string {
 
     return tableHtml;
 }
-function renderDO2Table(data: string, interval: Interval): string {
-    const rows = prepareRows(data, interval);
 
-    let tableHtml = `
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>センサID</th>
-                    <th>日時</th>
-                    <th>値（調整中です！）</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
+// DO2用: 引用符などを解釈せず、改行とカンマだけで単純に分割する
+function parseSimple(data: string): string[][] {
+    return data
+        .split(/\r?\n/)
+        .filter((line) => line.trim() !== "")
+        .map((line) => line.split(","));
+}
 
-    rows.reverse().forEach((row: any) => {
-
-        const utcDate = new Date(row[1]);
-        const jst = utcDate.toLocaleString("ja-JP", {
-            timeZone: "Asia/Tokyo"
-        });
-
-        tableHtml += `
-            <tr>
-                <td>${row[0]}</td>
-                <td>${jst}</td>
-                <td>${row[2]}</td>
-                </tr>
-        `;
+// DO2用: 日時は日本時間の文字列のまま。0分ちょうどで、時が3の倍数の行だけ残す
+function thinRowsText(rows: string[][]): string[][] {
+    return rows.filter((row) => {
+        const m = /(\d{2}):(\d{2}):\d{2}/.exec(row[1] ?? "");
+        return m !== null && m[2] === "00" && Number(m[1]) % 3 === 0;
     });
+}
 
-    tableHtml += `
-            </tbody>
+// 表に入れる文字列を安全にする
+function escapeHtml(s: string): string {
+    return s
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+function renderDO2Table(data: string, interval: Interval): string {
+    let rows = parseSimple(data);
+    if (interval === "3h") rows = thinRowsText(rows);
+
+    const headers = ["センサID", "日時", "緯度", "経度", "水温(℃)", "DO(%)", "DO(mg/L)"];
+
+    // 列数が7より多い行があっても、そのまま並べられるようにする
+    const colCount = rows.reduce((max, r) => Math.max(max, r.length), headers.length);
+
+    const headHtml = Array.from({ length: colCount }, (_, i) =>
+        `<th>${headers[i] ?? ""}</th>`
+    ).join("");
+
+    const bodyHtml = rows.reverse().map((row) => {
+        const cells = Array.from({ length: colCount }, (_, i) =>
+            `<td>${escapeHtml(row[i] ?? "")}</td>`
+        ).join("");
+        return `<tr>${cells}</tr>`;
+    }).join("");
+
+    return `
+        <table border="1">
+            <thead><tr>${headHtml}</tr></thead>
+            <tbody>${bodyHtml}</tbody>
         </table>
     `;
-
-    return tableHtml;
 }
+
 //追加
 function renderDO3Table(data: string, interval: Interval): string {
     const rows = prepareRows(data, interval);

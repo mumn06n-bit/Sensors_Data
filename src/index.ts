@@ -4,7 +4,7 @@ import { renderChart } from "./graph.js";
 import { thinRows, type Interval } from "./thinRows.js";
 
 const API_URLS = {
-    water: "/api/water",
+    //water: "/api/water",
     salinity: "/api/salinity",
     do1: "/api/do1",
     do2: "/api/do2", //追加
@@ -57,9 +57,9 @@ function prepareRows(data: string, interval: Interval): any[] {
 
 const renderTable = (data: string, sensorType: string, interval: Interval): string => {
 
-    if (sensorType === "water") {
-        return renderWaterTable(data, interval);
-    }
+    // if (sensorType === "water") {
+    //     return renderWaterTable(data, interval);
+    // }
 
     if (sensorType === "salinity") {
         return renderSalinityTable(data, interval);
@@ -79,49 +79,49 @@ const renderTable = (data: string, sensorType: string, interval: Interval): stri
     return "";
 };
 
-function renderWaterTable(data: string, interval: Interval): string {
+// function renderWaterTable(data: string, interval: Interval): string {
 
-    const rows = prepareRows(data, interval);
+//     const rows = prepareRows(data, interval);
 
-    let tableHtml = `
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>センサID</th>
-                    <th>日時</th>
-                    <th>バッテリ電圧</th>
-                    <th>外気温</th>
-                    <th>水温</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
+//     let tableHtml = `
+//         <table border="1">
+//             <thead>
+//                 <tr>
+//                     <th>センサID</th>
+//                     <th>日時</th>
+//                     <th>バッテリ電圧</th>
+//                     <th>外気温</th>
+//                     <th>水温</th>
+//                 </tr>
+//             </thead>
+//             <tbody>
+//     `;
 
-    rows.reverse().forEach((row: any) => {
+//     rows.reverse().forEach((row: any) => {
 
-        const utcDate = new Date(row[1]);
-        const jst = utcDate.toLocaleString("ja-JP", {
-            timeZone: "Asia/Tokyo"
-        });
+//         const utcDate = new Date(row[1]);
+//         const jst = utcDate.toLocaleString("ja-JP", {
+//             timeZone: "Asia/Tokyo"
+//         });
 
-        tableHtml += `
-            <tr>
-                <td>${row[0]}</td>
-                <td>${jst}</td>
-                <td>${row[2]} V</td>
-                <td>${row[3]} ℃</td>
-                <td>${row[4]} ℃</td>
-            </tr>
-        `;
-    });
+//         tableHtml += `
+//             <tr>
+//                 <td>${row[0]}</td>
+//                 <td>${jst}</td>
+//                 <td>${row[2]} V</td>
+//                 <td>${row[3]} ℃</td>
+//                 <td>${row[4]} ℃</td>
+//             </tr>
+//         `;
+//     });
 
-    tableHtml += `
-            </tbody>
-        </table>
-    `;
+//     tableHtml += `
+//             </tbody>
+//         </table>
+//     `;
 
-    return tableHtml;
-}
+//     return tableHtml;
+// }
 
 function renderSalinityTable(data: string, interval: Interval): string {
     const rows = prepareRows(data, interval);
@@ -226,8 +226,8 @@ function renderDO2Table(data: string, interval: Interval): string {
                 <tr>
                     <th>センサID</th>
                     <th>日時</th>
-                    <th>バッテリ電圧</th>
-                    <th>外気温</th>
+                    <th>バッテリ電圧（ダミーデータ）</th>
+                    <th>外気温（ダミーデータ）</th>
                     <th>水温</th>
                     <th>DO(%)</th>
                     <th>DO(mg/L)</th>
@@ -264,7 +264,6 @@ function renderDO2Table(data: string, interval: Interval): string {
     return tableHtml;
 }
 
-//追加
 function renderDO3Table(data: string, interval: Interval): string {
     const rows = prepareRows(data, interval);
 
@@ -317,16 +316,19 @@ if (app) {
     app.innerHTML = `
     <h2>センサデータ</h2>
     <div class="link-row">
-        <a href="https://kitsunezaki.vercel.app/data" target="_blank" rel="noopener noreferrer">
-            狐崎みるはこちら
-        </a>
+        <div class="link-item">
+            <a href="https://kitsunezaki.vercel.app/data" target="_blank" rel="noopener noreferrer">
+                みるねざき はこちら
+            </a>
+            <span class="link-note">↑機能追加中です！ぜひご確認ください</span>
+        </div>
         <a href="https://sensors-data-stable.vercel.app/" target="_blank" rel="noopener noreferrer">
             宮城県水産高校のみなさまへ
         </a>
     </div>
 
     <div id="tab-container">
-        <button id="water-tab" class="tab">水温</button>
+        <!-- <button id="water-tab" class="tab">水温</button> -->
         <button id="salinity-tab" class="tab active">塩分</button>
         <button id="do1-tab" class="tab">DO1号</button>
         <button id="do2-tab" class="tab">DO2号</button>
@@ -354,7 +356,7 @@ if (app) {
     </div>
 `;
 }
-const waterTab = document.getElementById("water-tab");
+//const waterTab = document.getElementById("water-tab");
 const salinityTab = document.getElementById("salinity-tab");
 const do1Tab = document.getElementById("do1-tab");
 const do2Tab = document.getElementById("do2-tab");//追加
@@ -369,11 +371,10 @@ const chartContainer =
 let chartInterval: Interval = "all";
 const chartIntervalButton = document.getElementById("chart-interval-button");
 
-// グラフ用ボタンは、グラフ表示中、かつ塩分・DO1号・DO3号のときだけ表示
+// グラフ用ボタンは、グラフ表示中のときだけ表示
 function updateChartIntervalVisibility() {
     if (!chartIntervalButton) return;
-    const hasInterval = ["salinity", "do1", "do3"].includes(currentSensorType);
-    chartIntervalButton.style.display = isChartVisible && hasInterval ? "" : "none";
+    chartIntervalButton.style.display = isChartVisible ? "" : "none";
 }
 
 // グラフ用ボタンの見た目を状態に合わせる
@@ -409,16 +410,16 @@ tableIntervalButton?.addEventListener("click", () => {
 
 let currentSensorType = "salinity";
 
-waterTab?.addEventListener("click", () => {
-    currentSensorType = "water";
-    updateChartIntervalVisibility();
-    setActiveTab(waterTab);
-    loadTable(API_URLS.water, "water");
+// waterTab?.addEventListener("click", () => {
+//     currentSensorType = "water";
+//     updateChartIntervalVisibility();
+//     setActiveTab(waterTab);
+//     loadTable(API_URLS.water, "water");
 
-    if (isChartVisible) {
-    loadChart(API_URLS.water, "water");
-}
-});
+//     if (isChartVisible) {
+//     loadChart(API_URLS.water, "water");
+// }
+//});
 
 salinityTab?.addEventListener("click", () => {
     currentSensorType = "salinity";
@@ -494,12 +495,6 @@ async function loadChart(
     sensorType: string
 ) {
     if (!chartContainer) return;
-
-    // DO2はグラフがないので、取得せずにメッセージだけ出す
-    if (sensorType === "do2") {
-        chartContainer.textContent = "DO2号のグラフは準備中です。";
-        return;
-    }
 
     const data = await fetchData(apiUrl);
     if (!data) return;

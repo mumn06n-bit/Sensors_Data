@@ -20,29 +20,29 @@ export function renderChart(
 ) {
     if (!chartContainer) return;
 
-    if (sensorType === "water") {
-        chartContainer.innerHTML =
-            `<div class="chart-legend">
-                <span class="legend-item">
-                    <span class="legend-color water-temp"></span>
-                    水温
-                </span>
+    // if (sensorType === "water") {
+    //     chartContainer.innerHTML =
+    //         `<div class="chart-legend">
+    //             <span class="legend-item">
+    //                 <span class="legend-color water-temp"></span>
+    //                 水温
+    //             </span>
 
-                <span class="legend-item">
-                    <span class="legend-color outside-temp"></span>
-                    外気温
-                </span>
-            </div>
-            <div class="chart-main">
-                <div class="chart-scroll-area">
-                    <div class="chart-wrapper">
-                        <canvas id="water-chart"></canvas>
-                    </div>
-                </div>
-            </div>`;
+    //             <span class="legend-item">
+    //                 <span class="legend-color outside-temp"></span>
+    //                 外気温
+    //             </span>
+    //         </div>
+    //         <div class="chart-main">
+    //             <div class="chart-scroll-area">
+    //                 <div class="chart-wrapper">
+    //                     <canvas id="water-chart"></canvas>
+    //                 </div>
+    //             </div>
+    //         </div>`;
 
-        renderWaterChart(data);
-    }
+    //     renderWaterChart(data);
+    // }
 
     if (sensorType === "salinity") {
         chartContainer.innerHTML =
@@ -107,6 +107,35 @@ export function renderChart(
         renderDO1Chart(data, interval);
     }
 
+    if (sensorType === "do2") {
+        chartContainer.innerHTML =
+            `<div class="chart-legend">
+                <span class="legend-item">
+                    <span class="legend-color translucent-water-temp"></span>
+                    水温
+                </span>
+    
+                <span class="legend-item">
+                    <span class="legend-color do-percent"></span>
+                    DO（%）
+                </span>
+
+                <span class="legend-item">
+                    <span class="legend-color do-MgL"></span>
+                    DO（mg/L）
+                </span>
+            </div>
+            <div class="chart-main">
+                <div class="chart-scroll-area">
+                    <div class="chart-wrapper">
+                        <canvas id="do2-chart"></canvas>
+                    </div>
+                </div>
+            </div>`;
+
+        renderDO2Chart(data, interval);
+    }
+
     if (sensorType === "do3") {
         chartContainer.innerHTML =
             `<div class="chart-legend">
@@ -153,115 +182,115 @@ const CHART_COLORS = {
     translucentOutsideTemp: "#ef53507c",
 };
 // 水温グラフ
-let waterChart: Chart | null = null;
+// let waterChart: Chart | null = null;
 
-function renderWaterChart(data: string) {
-    const rows = parseData(data);
+// function renderWaterChart(data: string) {
+//     const rows = parseData(data);
 
-    const labels = rows.map((row: any) => {
-        const date = new Date(row[1]);
+//     const labels = rows.map((row: any) => {
+//         const date = new Date(row[1]);
 
-        return date.toLocaleString("ja-JP", {
-            timeZone: "Asia/Tokyo",
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-        });
-    });
+//         return date.toLocaleString("ja-JP", {
+//             timeZone: "Asia/Tokyo",
+//             year: "numeric",
+//             month: "2-digit",
+//             day: "2-digit",
+//             hour: "2-digit",
+//             minute: "2-digit",
+//             hour12: false,
+//         });
+//     });
 
-    const waterTemps = rows.map((row: any) => {
-        return Number(row[4]);
-    });
+//     const waterTemps = rows.map((row: any) => {
+//         return Number(row[4]);
+//     });
 
-    const outsideTemps = rows.map((row: any) => {
-        return Number(row[3]);
-    });
+//     const outsideTemps = rows.map((row: any) => {
+//         return Number(row[3]);
+//     });
 
-    const canvas = document.getElementById(
-        "water-chart"
-    ) as HTMLCanvasElement;
+//     const canvas = document.getElementById(
+//         "water-chart"
+//     ) as HTMLCanvasElement;
 
-    const chartWidth = Math.max(
-        rows.length * 40,
-        800
-    );
-    canvas.width = chartWidth;
-    canvas.height = 400;
+//     const chartWidth = Math.max(
+//         rows.length * 40,
+//         800
+//     );
+//     canvas.width = chartWidth;
+//     canvas.height = 400;
 
-    if (waterChart) {
-        waterChart.destroy();
-    }
+//     if (waterChart) {
+//         waterChart.destroy();
+//     }
 
-    waterChart = new Chart(canvas, {
-        type: "line",
+//     waterChart = new Chart(canvas, {
+//         type: "line",
 
-        data: {
-            labels: labels,
+//         data: {
+//             labels: labels,
 
-            datasets: [
-                {
-                    label: "水温",
-                    data: waterTemps,
-                    borderColor: CHART_COLORS.waterTemp,
-                    backgroundColor: CHART_COLORS.waterTemp,
-                    borderWidth: 2,
-                    yAxisID: "yTempLeft"
-                },
-                {
-                    label: "外気温",
-                    data: outsideTemps,
-                    borderColor: CHART_COLORS.outsideTemp,
-                    backgroundColor: CHART_COLORS.outsideTemp,
-                    borderWidth: 2,
-                    yAxisID: "yTempLeft"
-                },
-            ],
-        },
+//             datasets: [
+//                 {
+//                     label: "水温",
+//                     data: waterTemps,
+//                     borderColor: CHART_COLORS.waterTemp,
+//                     backgroundColor: CHART_COLORS.waterTemp,
+//                     borderWidth: 2,
+//                     yAxisID: "yTempLeft"
+//                 },
+//                 {
+//                     label: "外気温",
+//                     data: outsideTemps,
+//                     borderColor: CHART_COLORS.outsideTemp,
+//                     backgroundColor: CHART_COLORS.outsideTemp,
+//                     borderWidth: 2,
+//                     yAxisID: "yTempLeft"
+//                 },
+//             ],
+//         },
 
-        options: {
-            responsive: false,
-            plugins: {
-                legend: {
-                    display: false,
-                },
-            },
-            scales: {
-                yTempLeft: {
-                    display: true,
-                    position: "left",
-                    title: {
-                        display: true,
-                        text: "℃",
-                    },
-                    min: 15,
-                    max: 40,
-                },
-                yTempRight: {
-                    display: true,
-                    position: "right",
-                    title: {
-                        display: true,
-                        text: "℃",
-                    },
-                    min: 15,
-                    max: 40,
-                },
-            },
-        },
-    });
-    requestAnimationFrame(() => {
-        const scrollArea = document.querySelector(
-            ".chart-scroll-area"
-        ) as HTMLElement;
+//         options: {
+//             responsive: false,
+//             plugins: {
+//                 legend: {
+//                     display: false,
+//                 },
+//             },
+//             scales: {
+//                 yTempLeft: {
+//                     display: true,
+//                     position: "left",
+//                     title: {
+//                         display: true,
+//                         text: "℃",
+//                     },
+//                     min: 15,
+//                     max: 40,
+//                 },
+//                 yTempRight: {
+//                     display: true,
+//                     position: "right",
+//                     title: {
+//                         display: true,
+//                         text: "℃",
+//                     },
+//                     min: 15,
+//                     max: 40,
+//                 },
+//             },
+//         },
+//     });
+//     requestAnimationFrame(() => {
+//         const scrollArea = document.querySelector(
+//             ".chart-scroll-area"
+//         ) as HTMLElement;
 
-        if (scrollArea) {
-            scrollArea.scrollLeft = scrollArea.scrollWidth;
-        }
-    });
-}
+//         if (scrollArea) {
+//             scrollArea.scrollLeft = scrollArea.scrollWidth;
+//         }
+//     });
+// }
 
 // 塩分グラフ
 let salinityChart: Chart | null = null;
@@ -518,6 +547,176 @@ function renderDO1Chart(data: string, interval: Interval) {
                     data: outsideTemps,
                     borderColor: CHART_COLORS.translucentOutsideTemp,
                     backgroundColor: CHART_COLORS.translucentOutsideTemp,
+                    borderWidth: 2,
+                    yAxisID: "yTemp",
+                },
+                {
+                    label: "DO(%)",
+                    data: doPercent,
+                    borderColor: CHART_COLORS.doPercent,
+                    backgroundColor: CHART_COLORS.doPercent,
+                    borderWidth: 2,
+                    yAxisID: "yDO",
+                },
+                {
+                    label: "DO(mg/L)",
+                    data: doMgL,
+                    borderColor: CHART_COLORS.doMgL,
+                    backgroundColor: CHART_COLORS.doMgL,
+                    borderWidth: 2,
+                    yAxisID: "yDOMgL",
+                },
+            ],
+        },
+        options: {
+            responsive: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
+            scales: {
+                // 横軸: 00:00 のときだけ日付も表示する
+                x: {
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0,
+                        callback: function (value, index) {
+                            const label = this.getLabelForValue(Number(value));
+                            const [date = "", time = ""] = label.split(" ");
+
+                            // 00:00 と、いちばん左のラベルは日付も出す(2行表示)
+                            if (time === "00:00" || index === 0) {
+                                return [time, date];
+                            }
+
+                            // それ以外は時刻だけ
+                            return time;
+                        },
+                    },
+                },
+
+                // 温度用
+                yTemp: {
+                    display: false,
+                },
+
+                // DO(%)用
+                yDO: {
+                    display: true,
+                    position: "left",
+
+                    title: {
+                        display: true,
+                        text: "%",
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                    },
+
+                    min: doPercentRange.min,
+                    max: doPercentRange.max
+                },
+
+                // DO(mg/L)用
+                yDOMgL: {
+                    display: true,
+                    position: "right",
+
+                    title: {
+                        display: true,
+                        text: "mg/L",
+                    },
+                    min: doMgLRange.min,
+                    max: doMgLRange.max,
+                },
+            },
+        },
+    });
+    requestAnimationFrame(() => {
+        const scrollArea = document.querySelector(
+            ".chart-scroll-area"
+        ) as HTMLElement;
+
+        if (scrollArea) {
+            scrollArea.scrollLeft = scrollArea.scrollWidth;
+        }
+    });
+}
+
+// DO2号グラフ
+let do2Chart: Chart | null = null;
+
+function renderDO2Chart(data: string, interval: Interval) {
+    const rows = parseData(data);
+
+    console.log("DO2のデータ件数:", rows.length);
+
+    const displayRows = thinRows(rows, interval);
+
+    const doPercentRange = calcAxisRange(rows, 5, 2, 5, 1, 300);
+    const doMgLRange     = calcAxisRange(rows, 6, 0.5, 0.5, 0.1, 30);
+
+    const labels = displayRows.map((row: any) => {
+        const date = new Date(row[1]);
+
+        return date.toLocaleString("ja-JP", {
+            timeZone: "Asia/Tokyo",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        });
+    });
+    
+    // 水温
+    const waterTemps = displayRows.map((row: any) => {
+        return Number(row[4]);
+    });
+
+    // DO(%)
+    const doPercent = displayRows.map((row: any) => {
+        return Number(row[5]);
+    });
+
+    // DO(mg/L)
+    const doMgL = displayRows.map((row: any) => {
+        return Number(row[6]);
+    });
+
+    const canvas = document.getElementById(
+        "do2-chart"
+    ) as HTMLCanvasElement;
+
+    const chartWidth = Math.max(
+        displayRows.length * getPxPerPoint(interval),
+        800
+    );
+    canvas.width = chartWidth;
+    canvas.height = 400;
+
+
+
+    // すでにグラフが存在していたら削除
+    if (do2Chart) {
+        do2Chart.destroy();
+    }
+
+    do2Chart = new Chart(canvas, {
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [
+                {
+                    label: "水温",
+                    data: waterTemps,
+                    borderColor: CHART_COLORS.translucentWaterTemp,
+                    backgroundColor: CHART_COLORS.translucentWaterTemp,
                     borderWidth: 2,
                     yAxisID: "yTemp",
                 },

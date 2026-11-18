@@ -160,6 +160,7 @@ td {
     flex-wrap: wrap;
     gap: 8px 25px;
     margin-bottom: 8px;
+}
 /* グラフデータ間隔の切り替えボタン */
 .interval-buttons { display: flex; margin-bottom: 8px; }
 .interval-btn {
@@ -183,4 +184,15 @@ td {
 /* 表の表示間隔切り替えボタン */
 .table-interval-buttons {
     justify-content: flex-end;
+}
+
+.link-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.link-note {
+    font-size: 12px;
+    color: #004068;
+    margin-top: 2px;
 }
